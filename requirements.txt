@@ -1,0 +1,10 @@
+# Quantum computing libraries
+qiskit>=1.0.0
+qiskit-aer>=0.13.0
+
+# Scientific computing
+numpy>=1.24.0
+matplotlib>=3.7.0
+
+# Optional: for better performance and additional quantum info functions
+scipy>=1.10.0
