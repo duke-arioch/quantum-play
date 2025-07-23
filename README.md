@@ -1,13 +1,14 @@
-# Quantum Observer Dependence Test
+# Quantum Contextuality Demonstration
 
-This project demonstrates enhanced quantum observer dependence tests using Qiskit. It explores how different measurement contexts and observer operations can affect quantum entanglement measures.
+This project demonstrates quantum contextuality in three-party quantum systems using Qiskit. It shows how different measurement contexts (reference frames) reveal different entanglement structures in the same quantum state, based on the Plávala-Gühne theorem connecting contextuality and entanglement.
 
 ## Features
 
-*   **Enhanced Observer Tests**: Sophisticated tests showing observer dependence in quantum measurements
-*   **Multiple Quantum States**: Tests with GHZ, W-state, and custom asymmetric quantum states
-*   **Comprehensive Analysis**: Measures entanglement entropy, concurrence, three-tangle, and other quantum information metrics
-*   **Observer Protocols**: Implements interference, weak measurement, and basis mixing protocols
+*   **Quantum Contextuality**: Demonstrates how measurement context affects observed quantum correlations
+*   **Multiple Quantum States**: Tests with GHZ and W-states
+*   **Reference Frame Transformations**: Uses unitary transformations representing different measurement contexts
+*   **Comprehensive Analysis**: Measures entanglement entropy, concurrence, and provides mathematical verification
+*   **Educational Focus**: Clear explanations of what the results mean and what they don't mean
 
 ## Setup and Installation
 
@@ -30,60 +31,80 @@ On macOS/Linux:
 
 ## Usage
 
-Run the main script to see the enhanced observer dependence tests:
+### Main Demonstration
+
+Run the main contextuality demonstration:
 
 ```
 python qi2.py
 ```
 
-The script will:
+This will show:
 
-*   Test multiple quantum states (GHZ, Asymmetric, W-state)
-*   Apply different observer protocols
-*   Measure various quantum information quantities
-*   Report any observer-dependent effects found
-*   Provide verification and analysis of the results
+*   How different measurement contexts (A, B, C) reveal different entanglement structures
+*   Context A & B: E\_AB = 1.0, Concurrence = 0.0 (mixed state)
+*   Context C: E\_AB = 0.0, Concurrence = 1.0 (pure Bell state)
+*   W-state verification with perfect fidelity
+*   Mathematical verification of the quantum transformations
 
-## Understanding the Output
+### Analysis Scripts
 
-The program tests for observer dependence by:
+For deeper technical analysis:
 
-1.  Creating entangled quantum states
-2.  Applying observer-specific operations
-3.  Measuring entanglement quantities from each observer's perspective
-4.  Comparing results to identify observer-dependent effects
+```
+# Debug the actual quantum measurements
+python debug_analysis.py
 
-Key metrics measured:
+# Get corrected mathematical interpretation  
+python final_check.py
+```
 
-*   **E\_AB**: Entanglement entropy between qubits A and B
-*   **C\_AB**: Concurrence (a measure of entanglement)
-*   **S\_A\_given\_C**: Conditional entropy
-*   **three\_tangle**: Three-party entanglement measure
-*   **linear\_entropy**: Purity measure
+## Understanding the Results
+
+### Key Insight
+
+The demonstration shows that **Context C** transforms the GHZ state `(|000⟩ + |111⟩)/√2` into `(|000⟩ + |011⟩)/√2`, which creates a Bell state between qubits A and B when we trace out qubit C.
+
+### What the Metrics Mean
+
+*   **E\_AB = 0**: The A-B subsystem is in a pure state (not mixed)
+*   **Concurrence = 1**: The A-B subsystem is maximally entangled (Bell state)
+*   **Different contexts reveal different entanglement structures** - this is quantum contextuality!
+
+### Important Notes
+
+*   This is **NOT** about measurement collapse or wavefunction reduction
+*   These are **unitary transformations** representing different reference frames
+*   The effect demonstrates the **Plávala-Gühne theorem** connecting contextuality and entanglement
+
+## Files Overview
+
+*   `**qi2.py**`: Main quantum contextuality demonstration script
+*   `**debug_analysis.py**`: Technical analysis showing actual quantum state transformations
+*   `**final_check.py**`: Corrected mathematical interpretation of the results
+*   `**requirements.txt**`: Python dependencies
+*   `**setup_and_run.bat/.sh**`: Setup scripts for different platforms
+
+## Scientific Background
+
+Based on: Plávala & Gühne, "Contextuality as a Precondition for Quantum Entanglement" (arXiv:2209.09942)
+
+This demonstrates that quantum entanglement is fundamentally contextual - the observed correlations depend on the measurement framework used to observe them. Different unitary reference frame transformations can reveal completely different entanglement structures within the same quantum state.
 
 ## Dependencies
 
 *   `qiskit>=1.0.0`: Main quantum computing framework
 *   `qiskit-aer>=0.13.0`: High-performance quantum circuit simulator
 *   `numpy>=1.24.0`: Numerical computations
-*   `matplotlib>=3.7.0`: Plotting and visualization
-*   `scipy>=1.10.0`: Additional scientific computing functions
-
-## Deactivating the Virtual Environment
-
-When you're done working with the project, deactivate the virtual environment:
-
-```
-deactivate
-```
+*   `matplotlib>=3.7.0`: Plotting and visualization (optional)
 
 ## Contributing
 
-Feel free to fork this repository and submit pull requests for improvements or additional quantum observer tests.
+Feel free to fork this repository and submit pull requests for improvements or additional quantum contextuality demonstrations.
 
 ## License
 
-This project is open source. Please include appropriate attribution if you use this code in your research or projects.
+This project is open source. Please include appropriate attribution if you use this code in your research or projects. If using for academic work, please cite the relevant papers on quantum contextuality.
 
 ```
 pip install -r requirements.txt
