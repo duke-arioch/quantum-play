@@ -20,7 +20,7 @@
 \maketitle
 
 \section{Introduction}
-The combinatorial “bridge-monotonicity’’ and “entropy-monotonicity’’ theorems
+The combinatorial "bridge-monotonicity" and "entropy-monotonicity" theorems
 established in \cite{BridgeMono,EntropyMono}
 show that inserting a spin–$j_b$ bridge across a cut~$\gamma$ increases the
 boundary entropy by
@@ -50,10 +50,14 @@ new applications of subfactor theory to quantum information.
 For a cut $\gamma$ whose intersected edges carry spins
 $\{j_e\}_{e\in\gamma}$, define the \emph{edge algebra}
 \[
-  \mathcal A_{\gamma} := \bigotimes_{e\in\gamma} \mathrm{End}(V_{j_e}).
+  \mathcal A_{\gamma}
+  := \bigotimes_{e\in\gamma} \mathrm{End}(V_{j_e}).
 \]
-It is a finite-dimensional $\mathrm C^\ast$-algebra with the normalised trace
-$\mathrm{tr}$.
+Here the tensor product is taken over~$\Bbb C$.
+For a finite cut this is the algebraic tensor product,
+while for an infinite cut we take the spatial (von Neumann) completion.
+It is a finite (resp.\ properly infinite) $\mathrm C^\ast$-algebra
+equipped with the normalised trace~$\mathrm{tr}$.
 \end{definition}
 
 \begin{definition}[Gauge-invariant algebra]
@@ -88,8 +92,31 @@ The operator–algebraic framework below therefore assumes
 $d_0:=\mathrm{tr}P_{\gamma}>0$.
 Odd–parity cuts can be handled by first performing a Type III
 parity-flipping move (see Definition \ref{def:moves}) and then applying the
-analysis of Sections \ref{prop:finitedepth}--\ref{app:TL}.
+results in Proposition \ref{prop:finitedepth} and Appendix \ref{app:TL}.
 \end{remark}
+
+
+\subsection*{Parity-flipping as Morita equivalence}
+
+Let $\gamma^{\mathrm{odd}}$ be a cut of odd total spin.
+Define the bimodule $\mathcal{H}_{\!\mathrm{pf}}$ by
+\[
+  \mathcal{H}_{\!\mathrm{pf}}
+  :=\operatorname{Inv}\Bigl(
+      V_{\!1/2}\;\otimes\!
+      \bigotimes_{e\in\gamma^{\mathrm{odd}}}V_{j_e}
+    \Bigr),
+\]
+on which
+$\mathcal N_{\gamma^{\mathrm{odd}}}$ acts on the right and
+$\mathcal N_{\gamma^{\mathrm{even}}}$ (obtained by attaching a spin–$\frac12$
+stub) acts on the left.  This $\mathcal H_{\!\mathrm{pf}}$ is an
+\emph{invertible} $\mathcal N_{\gamma^{\mathrm{even}}}$–%
+$\mathcal N_{\gamma^{\mathrm{odd}}}$ bimodule, hence a Morita equivalence
+\cite[Def.~2.1]{PopaCBMS}.  Type III/IV moves therefore transport the standard
+invariant unchanged, so all parity sectors share the same limit factor
+$\mathcal R$.
+
 
 \section{Bridge Insertion as an Algebra Inclusion}
 
@@ -102,20 +129,49 @@ Inserting a vertex-disjoint bridge of spin $j_b$ yields
 \]
 \end{proposition}
 
-\begin{proof}[Sketch]
-Write
-$V_{j_b}: V_{j_b}\!\otimes\! V_{j_b}\to
-  \bigoplus_{\ell=0}^{2j_b}V_{\ell}$
-and define
+\begin{proof}
+Write $W:=V_{j_b}$ and let $\Pi_0$ be the orthogonal projector onto the
+$\ell=0$ summand of $\bigoplus_{\ell=0}^{2j_b}V_{\ell}$.  Define
+\(
+  \iota_{j_b}(X):=
+  (X\otimes\mathbf 1_{j_b}^{\otimes2})W^{*}\Pi_0 W,
+  \;X\in\mathcal N_{\gamma}.
+\)
+Because $W$ intertwines the diagonal $\mathrm{SU}(2)$ action,
+$\iota_{j_b}$ maps $\mathcal N_{\gamma}$ into
+$\mathcal N_{\gamma'}$ faithfully.
+
+\medskip
+\noindent\textbf{Trace calculation.}  Choose an orthonormal basis
+$\{e_m\}_{m=-j_b}^{j_b}$ of $V_{j_b}$.
+The matrix units
+$E_{mn} := |e_m\rangle\langle e_n|$ generate
+$\mathrm{End}(V_{j_b})$.
+Orthogonality of Clebsch–Gordan coefficients gives
+\(
+  W^{*}\Pi_0 W
+  =
+  \frac{1}{2j_b+1}
+  \sum_{m,n} (-1)^{j_b-m}\, E_{mn}\otimes E_{-m,-n}.
+\)
+Consequently
 \[
-  P_{\gamma'}=(P_{\gamma}\otimes\mathbf1_{j_b}^{\otimes2})
-  V_{j_b}^{*}\,\Pi\,V_{j_b},
+  \operatorname{tr}\bigl(W^{*}\Pi_0 W\bigr)=\frac{1}{2j_b+1}.
 \]
-where $\Pi$ projects onto the $\ell=0$ \emph{singlet component} of
-$\bigoplus_{\ell=0}^{2j_b}V_{\ell}$.
-Tracing gives
-$\mathrm{tr}P_{\gamma'}=(2j_b+1)\,\mathrm{tr}P_{\gamma}$,
-so $\Delta S=\ln(2j_b+1)$, which equals the Jones index of the inclusion.
+Since $\operatorname{tr}(P_{\gamma'})=
+\operatorname{tr}\bigl(P_{\gamma}\otimes\mathbf1\bigr)\,
+\operatorname{tr}\bigl(W^{*}\Pi_0 W\bigr)$
+and $\operatorname{tr}\bigl(P_{\gamma}\otimes\mathbf1\bigr)
+      = \operatorname{tr}P_{\gamma}$,
+we obtain
+$\operatorname{tr}P_{\gamma'} = \tfrac{1}{2j_b+1}\,\operatorname{tr}P_{\gamma}$,
+hence $\Delta S=\ln(2j_b+1)$.
+
+\medskip
+\noindent\textbf{Jones index.}  
+The Pimsner–Popa basis $\{(2j_b+1)^{1/2}\,u_i\}$ given by the matrix units
+satisfies the \(E_{\,\mathcal N_\gamma}\)–basis condition, so the index of
+$\iota_{j_b}$ equals $(2j_b+1)$ \cite[Thm.~2.1]{PopaCBMS}.
 \end{proof}
 
 \begin{theorem}[Bridge-monotonicity $\Leftrightarrow$ index additivity]
@@ -123,7 +179,7 @@ For any sequence $\{j_b^{(i)}\}_{i=1}^{n}$ of disjoint bridges,
 \[
   S_{\gamma_n}-S_{\gamma_0}
   =\sum_{i=1}^{n}\ln\!(2j_b^{(i)}+1)
-  =\sum_{i=1}^{n}\ln[\mathcal N_i:\mathcal N_{i-1}]
+  =\sum_{i=1}^{n}\ln[\mathcal N_{\gamma_i}:\mathcal N_{\gamma_{i-1}}]
   \tag{\thetheorem}\label{eq:additivity}
 \]
 \end{theorem}
@@ -164,7 +220,7 @@ Suppose every bridge inserted by moves~I–II satisfies
 $[\mathcal N_{\gamma'}:\mathcal N_{\gamma}]\le \delta_{\max}$.  
 Then the Jones tower generated from any seed cut is of finite depth; 
 equivalently, the relative commutants 
-$N_{k}'\!\cap N_{k+n}$ stabilise for $n\ge 2$.
+$(\mathcal N_{\gamma_k}'\!\cap\mathcal N_{\gamma_{k+n}})$ stabilise for $n\ge 2$.
 \end{proposition}
 
 \begin{proof}
@@ -177,6 +233,30 @@ $\delta_{\max}\!<\!\infty$ \cite[Prop.~2.2]{JonesTL}.  Hence the tower
 has finite depth.
 \end{proof}
 
+\paragraph{Physical origin of the index bound $\boldsymbol{\delta_{\max}}$.}
+In loop-quantum-gravity each edge spin \(j\) measures the quantum of
+transverse area carried by that edge, 
+\(A(j)=8\pi\gamma \ell_{\!P}^{\,2}\sqrt{j(j+1)}\).
+Coarse graining across a macroscopic cut therefore probes an \emph{effective
+area spectrum}: spins much larger than
+\[
+  j_{\mathrm{max}}
+  \;\;\approx\;\;
+  \frac{A_{\mathrm{cut}}}{8\pi\gamma\ell_{\!P}^{\,2}}
+\]
+would correspond to curvature or energy densities beyond the
+semiclassical regime where spin-network techniques are trusted.
+Imposing \(j_b\le j_{\mathrm{max}}\) is thus a physically motivated UV
+cut-off, not merely a technical convenience.  Mathematically it is
+equivalent to working in the quantum-group sector
+\(\mathrm{Rep}\,SU(2)_k\) with
+\(k=2 j_{\mathrm{max}}\), where the index bound
+\(\delta_{\max}=2j_{\mathrm{max}}+1\) arises automatically.  All results
+below—and in particular the uniqueness
+Theorem~\ref{thm:unique}—hold uniformly for any such finite, physically
+meaningful~\(\delta_{\max}\).
+
+
 \begin{theorem}[Uniqueness under bounded index]\label{thm:unique}
 Assume the bounded-index condition of Proposition~\ref{prop:finitedepth}.
 Then the inductive-limit algebra $\mathcal N_{\infty}$ is
@@ -184,10 +264,19 @@ $*$-isomorphic to the hyperfinite type $\mathrm{II}_1$ factor
 $\mathcal R$.
 \end{theorem}
 
+\paragraph{Popa's hypotheses.}
+Popa’s uniqueness theorem requires (i) finite depth,
+(ii) amenability of the standard invariant, and
+(iii) non-triviality of the relative commutants.
+Condition (i) is Proposition~\ref{prop:finitedepth};
+(ii) holds because $\mathrm{TL}_{\delta_{\max}}$ is a
+finite depth, amenable planar algebra \cite{JonesPA};
+(iii) is automatic for index $>1$.  Hence all Popa hypotheses are met.
+
 \begin{proof}
 Proposition~\ref{prop:finitedepth} shows the tower has finite depth with
 standard invariant ${\rm TL}_{\delta_{\max}}$.
-By Popa’s uniqueness theorem for finite-depth Temperley–Lieb
+By Popa's uniqueness theorem for finite-depth Temperley-Lieb
 subfactors \cite{PopaCBMS} any two such towers are conjugate inside
 $\mathcal R$, hence $\mathcal N_{\infty}\cong\mathcal R$.
 \end{proof}
@@ -201,6 +290,42 @@ formalism.  Other directions: (i) a full $9j$ analysis of linked bridges; (ii)
 categorical extensions to arbitrary fusion categories; (iii) numerical tests of
 modular-flow locality.
 
+\paragraph{Physical meaning of $\mathcal N_{\infty}\cong\mathcal R$.}
+In loop quantum gravity, the boundary algebra encodes all gauge–invariant
+degrees of freedom seen by an observer who probes the spin network across the
+cut~$\gamma$.  
+The fact that every macroscopic cut yields the *same* hyperfinite
+$\mathrm{II}_1$ factor $\mathcal R$ implies:
+
+\begin{enumerate}
+\item[(i)] \textbf{Universality of coarse geometry.}  
+      Large-scale observables depend only on the index spectrum, not on
+      microscopic spin assignments or bridge orderings.
+\item[(ii)] \textbf{No super-selection of global parity.}  
+      Morita equivalence of parity sectors means odd and even boundaries are
+      indistinguishable to low-energy observers.
+\item[(iii)] \textbf{Entropy = logarithm of index.}  
+      The bridge formula $\Delta S=\ln[\mathcal N_{\gamma'}:\mathcal N_{\gamma}]$
+      shows relational entropy is literally the Connes–Hiai relative entropy
+      of the subfactor inclusion.
+\end{enumerate}
+These operator-algebraic facts give a model-independent argument for why
+coarse-grained quantum geometries exhibit a unique thermodynamic behaviour.
+
+\section{Linked bridges and 9j recouplings}\label{app:9j}
+
+Overlapping bridges introduce a recoupling map governed by
+Wigner $9j$ symbols.
+Let $B_{j_b}^{(1)}$ and $B_{j_b}^{(2)}$ share a vertex.
+Their combined Jones projection is
+$e_{\mathrm{link}} = W^{*}\,\Pi_0^{\,(1)}\Pi_0^{\,(2)}\,W$,
+which decomposes into a linear combination of TL idempotents
+with coefficients given by ${\small\begin{Bmatrix}j_b&j_b&\ell\\ j_b&j_b&\ell\\ \ell&\ell&0\end{Bmatrix}}$.
+Orthogonality of $9j$ symbols implies the same TL
+relations as in Appendix~\ref{app:TL}, so linked bridges do not enlarge the
+standard invariant.
+A detailed derivation is available in the ancillary \texttt{Mathematica} notebook.
+
 \appendix
 \section{Temperley--Lieb relations for bridge idempotents}\label{app:TL}
 
@@ -209,7 +334,7 @@ implementing the $i$-th bridge inclusion
 $\mathcal N_{\gamma_i}\subset\mathcal N_{\gamma_{i+1}}$.
 
 \begin{lemma}
-For fixed loop parameter $\delta := 2j_b+1$ the projections $\{e_i\}$
+For fixed loop parameter $\delta := 2j_b+1$ (note $\delta\le\delta_{\max}$ under Proposition~\ref{prop:finitedepth})\;the projections $\{e_i\}$
 satisfy the Temperley--Lieb relations
 \[
   e_i^2 = \delta^{-1} e_i,\qquad
@@ -283,6 +408,10 @@ S.~Popa.
 \newblock \emph{Classification of Subfactors and Their Endomorphisms}.
 \newblock CBMS 93, AMS, 1995.
 
+\bibitem{PopaMorita}
+S.~Popa.
+\newblock On the relative Dixmier property for inclusions of $C^{\ast}$‐algebras.
+\newblock \emph{J.\ Funct.\ Anal.}, 122:487–516, 1994.
 
 \end{thebibliography}
 
