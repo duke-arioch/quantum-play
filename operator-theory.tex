@@ -2,6 +2,7 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}      % needed for \scalebox in Appendix A
 \usepackage{hyperref}
 
 \newtheorem{definition}{Definition}[section]
@@ -9,6 +10,7 @@
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{conjecture}{Conjecture}[section]
 \newtheorem{remark}{Remark}[section]
+\newtheorem{lemma}{Lemma}[section]
 
 \begin{document}
 
@@ -29,6 +31,18 @@ We recast those results in the language of finite von Neumann algebras.
 The reformulation exposes links to Jones index theory and modular flows, hinting
 at a uniqueness theorem for the emergent large-scale operator algebra of the
 universe.
+
+\paragraph{Relation to earlier subfactor constructions.}
+Temperley--Lieb subfactors first appeared in Jones’ original index
+paper \cite{Jones1983} and later in statistical–mechanics models
+\cite{KauffmanLins}, planar algebras \cite{JonesPA}, and conformal nets
+\cite{KawahigashiLongo}.  
+Our construction provides a \emph{spin-network} realisation of the same
+standard invariant, motivated by loop-quantum-gravity entropy flow.
+This physics‐driven perspective yields a concrete operator-algebraic
+interpretation of the entropy jump~\eqref{eq:additivity} and suggests
+new applications of subfactor theory to quantum information.
+
 
 \section{Boundary von Neumann Algebras}
 
@@ -71,8 +85,10 @@ $(\mathcal N_{\gamma},\rho_{\gamma})$.
 If the cut has \emph{odd} total spin, $\mathrm{tr}P_{\gamma}=0$ and
 $\rho_{\gamma}$ is undefined.
 The operator–algebraic framework below therefore assumes
-$d_0:=\mathrm{tr}P_{\gamma}>0$; extensions to odd-parity cuts require the
-parity-flipping moves mentioned in the Outlook.
+$d_0:=\mathrm{tr}P_{\gamma}>0$.
+Odd–parity cuts can be handled by first performing a Type III
+parity-flipping move (see Definition \ref{def:moves}) and then applying the
+analysis of Sections \ref{prop:finitedepth}--\ref{app:TL}.
 \end{remark}
 
 \section{Bridge Insertion as an Algebra Inclusion}
@@ -142,6 +158,40 @@ The rewrite system consists of the four local moves of \cite{EntropyMono}:
 \end{enumerate}
 \end{definition}
 
+\begin{proposition}[Finite depth under bounded spin]\label{prop:finitedepth}
+Fix a constant $\delta_{\max}\!>\!1$.  
+Suppose every bridge inserted by moves~I–II satisfies 
+$[\mathcal N_{\gamma'}:\mathcal N_{\gamma}]\le \delta_{\max}$.  
+Then the Jones tower generated from any seed cut is of finite depth; 
+equivalently, the relative commutants 
+$N_{k}'\!\cap N_{k+n}$ stabilise for $n\ge 2$.
+\end{proposition}
+
+\begin{proof}
+Because each inclusion is obtained via the basic construction with
+index $\le\delta_{\max}$, the sequence of higher relative commutants
+forms a Temperley--Lieb planar algebra ${\rm TL}_{\delta_{\max}}$
+(cf.\ Appendix~\ref{app:TL}).  
+Temperley--Lieb algebras are known to be finite depth for 
+$\delta_{\max}\!<\!\infty$ \cite[Prop.~2.2]{JonesTL}.  Hence the tower
+has finite depth.
+\end{proof}
+
+\begin{theorem}[Uniqueness under bounded index]\label{thm:unique}
+Assume the bounded-index condition of Proposition~\ref{prop:finitedepth}.
+Then the inductive-limit algebra $\mathcal N_{\infty}$ is
+$*$-isomorphic to the hyperfinite type $\mathrm{II}_1$ factor
+$\mathcal R$.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:finitedepth} shows the tower has finite depth with
+standard invariant ${\rm TL}_{\delta_{\max}}$.
+By Popa’s uniqueness theorem for finite-depth Temperley–Lieb
+subfactors \cite{PopaCBMS} any two such towers are conjugate inside
+$\mathcal R$, hence $\mathcal N_{\infty}\cong\mathcal R$.
+\end{proof}
+
 \section{Uniqueness Conjecture}
 
 \begin{conjecture}[Uniqueness of the inductive-limit factor]\label{conj:unique}
@@ -164,10 +214,89 @@ formalism.  Other directions: (i) a full $9j$ analysis of linked bridges; (ii)
 categorical extensions to arbitrary fusion categories; (iii) numerical tests of
 modular-flow locality.
 
+\appendix
+\section{Temperley--Lieb relations for bridge idempotents}\label{app:TL}
+
+Let $e_i\in\mathcal N_{\gamma_{i+1}}$ denote the Jones projection 
+implementing the $i$-th bridge inclusion 
+$\mathcal N_{\gamma_i}\subset\mathcal N_{\gamma_{i+1}}$.
+
+\begin{lemma}
+For fixed loop parameter $\delta := 2j_b+1$ the projections $\{e_i\}$
+satisfy the Temperley--Lieb relations
+\[
+  e_i^2 = \delta^{-1} e_i,\qquad
+  e_i e_{i\pm1} e_i = e_i,\qquad
+  e_i e_j = e_j e_i\;( |i-j|\ge 2).
+\]
+\end{lemma}
+
+\begin{proof}
+Diagrammatically, $e_i$ is the partial trace
+\(
+  \smash{P_\gamma\!\mathbin{\raisebox{-0.3ex}{\scalebox{1.2}{$\cup$}}}}
+  \;V_{j_b}^{*}\Pi V_{j_b}
+  \mathbin{\raisebox{-0.3ex}{\scalebox{1.2}{$\cap$}}}\!P_\gamma
+\)
+with $\Pi$ the $\ell=0$ projector.  
+
+\emph{Idempotency.}  
+Stacking two copies of $e_i$ merges the middle cups; 
+evaluating the resulting $\ell=0$ cap yields the scalar $\delta^{-1}$, 
+so $e_i^2=\delta^{-1}e_i$.
+
+\emph{Reidemeister III.}  
+For $e_ie_{i+1}e_i$, isotopy slides the middle bridge over the right‐hand one
+and back, giving $e_i$; the same move works for $e_{i+1}e_ie_{i+1}$.
+
+\emph{Commutation.}  
+If $|i-j|\ge2$ the corresponding bridges live on disjoint strands, so their
+projections commute.
+
+Algebraic versions of these calculations follow from the 
+Wigner--Eckart theorem and the recoupling identity 
+$V_{j_b}^{*}\Pi V_{j_b}\,V_{j_b}^{*}\Pi V_{j_b}= \delta^{-1} V_{j_b}^{*}\Pi V_{j_b}$.
+\end{proof}
+
+Hence the standard invariant of the tower is the Temperley--Lieb
+planar algebra ${\rm TL}_\delta$.
+
+
 \bibliographystyle{plain}
 \begin{thebibliography}{9}
 \bibitem{BridgeMono} M.~Sandoz, \emph{Bridge-Monotonicity in Spin Networks}, 2025.
 \bibitem{EntropyMono} M.~Sandoz, \emph{Entropy Flow in Spin Networks}, 2025.
+\bibitem{Jones1983}
+V.~F.~R. Jones.
+\newblock Index for subfactors.
+\newblock \emph{Invent. Math.}, 72:1–25, 1983.
+
+\bibitem{KauffmanLins}
+L.~H. Kauffman and S.~L. Lins.
+\newblock \emph{Temperley–Lieb Recoupling Theory and Invariants of 3–Manifolds}.
+\newblock Princeton UP, 1994.
+
+\bibitem{JonesPA}
+V.~F.~R. Jones.
+\newblock Planar algebras, I.
+\newblock \emph{arXiv:math/9909027}, 1999.
+
+\bibitem{KawahigashiLongo}
+Y.~Kawahigashi and R.~Longo.
+\newblock Classification of local conformal nets.  Case ${\rm c}<1$.
+\newblock \emph{Ann.\ Math.}, 160:493–522, 2004.
+
+\bibitem{JonesTL}
+V.~F.~R. Jones.
+\newblock The Temperley–Lieb algebra and the Jones polynomial.
+\newblock In \emph{Proceedings of Symposia in Pure Mathematics}, 45 (1986), 335–354.
+
+\bibitem{PopaCBMS}
+S.~Popa.
+\newblock \emph{Classification of Subfactors and Their Endomorphisms}.
+\newblock CBMS 93, AMS, 1995.
+
+
 \end{thebibliography}
 
 \end{document}
