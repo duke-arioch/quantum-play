@@ -331,7 +331,7 @@ impose the \emph{twisted Gauss constraint}
   \Inv_{\chi}\Bigl(
      V_{j_d}\!\otimes\!\bigotimes_{e\ni u} V_{j_e}
   \Bigr)
-  :=\Hom_{\SU(2)}\!\bigl(
+  :=\operatorname{Hom}_{\SU(2)}\!\bigl(
        \mathbb C_{\chi},\,
        V_{j_d}\otimes\!\bigotimes_{e\ni u} V_{j_e}
      \bigr)\neq0,
@@ -347,7 +347,7 @@ Let $\chi\colon\SU(2)\!\to\!\{\pm1\}$ be the parity character
 $\chi(V_j)=(-1)^{2j}$.  
 Attaching a twisted stub of half–integer spin
 promotes the vertex $u$ to the $\mathbb Z_2$–graded tensor
-category $\Rep(\SU(2),\chi)$ commonly used in fermionic
+category $\operatorname{Rep}(\SU(2),\chi)$ commonly used in fermionic
 topological phases \cite[Sec.\,2]{Kitaev2006}.
 
 \medskip\noindent
@@ -754,8 +754,8 @@ import matplotlib.pyplot as plt
 
 # ------- helper: dim Inv -------
 def invariant_dim(spins):
-    """Return dim Inv(⊗ V_j) for a list of spins."""
-    current = {0: 1}                         # maps total spin×2 → mult
+    """Return dim Inv(tensor V_j) for a list of spins."""
+    current = {0: 1}                         # maps total spinx2 -> mult
     for j in spins:
         j2 = int(round(j*2))
         nxt = collections.defaultdict(int)
@@ -864,6 +864,11 @@ random admissible bridges satisfy $\Delta S\ge0$.
 \bibitem{FultonHarris1991} W.~Fulton and J.~Harris, \emph{Representation Theory}, Springer GTM 129, 1991.
 
 \bibitem{AshtekarKrishnan2004} A.~Ashtekar and B.~Krishnan, “Isolated and dynamical horizons and their applications,” \emph{Living Reviews in Relativity} 7 (2004) 10.
+
+\bibitem{Yutsis1962}
+A.\,P.~Yutsis, I.\,B.~Levinson and V.\,V.~Vanagas,
+\emph{Mathematical Apparatus of the Theory of Angular Momentum},
+Israel Program for Scientific Translations, Jerusalem, 1962.
 
 \bibitem{BoothFairhurst2007}
   I.~Booth and S.~Fairhurst, “Isolated, slowly evolving, and dynamical trapping horizons:\\
