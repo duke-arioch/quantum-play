@@ -5,6 +5,14 @@ qiskit-aer>=0.13.0
 # Scientific computing
 numpy>=1.24.0
 matplotlib>=3.7.0
+pandas>=1.5.0
+seaborn>=0.12.0
+
+# Data presentation
+tabulate>=0.9.0
+
+# Graph visualization
+networkx>=3.0.0
 
 # Optional: for better performance and additional quantum info functions
 scipy>=1.10.0
