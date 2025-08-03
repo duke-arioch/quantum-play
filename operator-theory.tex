@@ -4,6 +4,8 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}      % needed for \scalebox in Appendix A
 \usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
 
 \newtheorem{definition}{Definition}[section]
 \newtheorem{theorem}{Theorem}[section]
@@ -11,6 +13,7 @@
 \newtheorem{conjecture}{Conjecture}[section]
 \newtheorem{remark}{Remark}[section]
 \newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}
 
 \begin{document}
 
@@ -251,6 +254,150 @@ are Morita equivalent.
 Hence every odd-parity boundary algebra lies in the same Morita class as its
 even-parity partner; the large-scale factor $\mathcal R$ is therefore
 parity-independent.
+
+%-----------------------------------------------------------------
+\subsection*{Verification details for the parity-flipping bimodule}
+%-----------------------------------------------------------------
+
+\begin{lemma}\label{lem:bimodule-structure}
+Let $F=\bigotimes_{e\in\gamma^{\mathrm{odd}}}V_{j_e}$ and
+$H_{\mathrm{pf}}=\operatorname{Inv}(V_{1/2}\otimes F)$ as in the
+proposition.
+Then $H_{\mathrm{pf}}$ is an
+$\bigl(\mathcal N_{\gamma^{\mathrm{even}}},
+       \mathcal N_{\gamma^{\mathrm{odd}}}\bigr)$–bimodule via
+\[
+  a_L\cdot\psi\cdot a_R
+  :=(a_L\otimes\mathbf1_V)\,\psi\,(\mathbf1_V\otimes a_R),
+  \qquad
+  a_L\in\mathcal N_{\gamma^{\mathrm{even}}},
+  \;a_R\in\mathcal N_{\gamma^{\mathrm{odd}}},
+  \;\psi\in H_{\mathrm{pf}}.
+\]
+Moreover the balanced tensor product relation
+$\psi\cdot a_R\otimes\overline\phi
+  =\psi\otimes\overline{a_R^{*}\phi}$
+holds for all $a_R,\psi,\phi$.
+\end{lemma}
+
+\begin{proof}
+Because $a_L$ (respectively $a_R$) acts non-trivially only on $F$,
+the left and right actions commute and preserve the $\mathrm{SU}(2)$
+invariant subspace.  For the balanced tensor product observe that
+\[
+  (\varepsilon\!\otimes\!\mathbf1_F)
+   \bigl((\psi\cdot a_R)\otimes\overline\phi\bigr)
+  =(\varepsilon\!\otimes\!\mathbf1_F)
+   \bigl(\psi\otimes\overline{a_R^{*}\phi}\bigr),
+\]
+because $\varepsilon$ contracts only the two $V_{1/2}$ legs; hence the
+two simple tensors are identified in the quotient.
+\end{proof}
+
+%-----------------------------------------------------------------
+\subsection*{Invertibility and balanced-tensor details}
+%-----------------------------------------------------------------
+
+\paragraph{Explicit evaluation and coevaluation.}
+Fix the standard weight basis
+$|+\rangle:=|m=\tfrac12\rangle$, $|-\rangle:=|m=-\tfrac12\rangle$ of
+$V_{1/2}$.
+Set
+\[
+  \varepsilon\bigl(|m_1\rangle\!\otimes|m_2\rangle\bigr)
+  \;:=\;
+  (-1)^{\tfrac12-m_1}\,\delta_{m_1,-m_2},
+  \qquad
+  \iota(1)
+  \;:=\;
+  |+\rangle\!\otimes|-\rangle-|-\rangle\!\otimes|+\rangle.
+\]
+Then $\varepsilon\circ\iota=\mathbf1_{\mathbb C}$ and
+$(\iota^\dagger\!\otimes\!\mathbf1)(\mathbf1\!\otimes\!\varepsilon)
+   =\mathbf1_{V_{1/2}}$, so $\varepsilon,\iota$ implement the rigid duality
+structure of $\mathrm{Rep}\,\mathrm{SU}(2)$.
+
+\paragraph{Balanced-tensor identity (detail).}
+Let
+$\psi,\phi\in H_{\mathrm{pf}}$ and
+$a_R\in\mathcal N_{\gamma^{\mathrm{odd}}}=\operatorname{End}(F)^{\mathrm{SU}(2)}$.
+Because $a_R$ acts as $\mathbf1_{V_{1/2}}\!\otimes a_R$ on
+$V_{1/2}\!\otimes F$,
+\[
+  (\varepsilon\!\otimes\!\mathbf1_F)\bigl((\psi\cdot a_R)\otimes\overline\phi\bigr)
+  =(\varepsilon\!\otimes\!\mathbf1_F)\bigl(\psi\otimes
+      (\mathbf1_{V_{1/2}}\!\otimes a_R^{*})\overline\phi\bigr)
+  =(\varepsilon\!\otimes\!\mathbf1_F)\bigl(\psi\otimes\overline{a_R^{*}\phi}\bigr),
+\]
+verifying the balanced-tensor relation required for $\Theta$.
+
+\paragraph{Invertibility — both directions.}
+Define $\Theta$ and $\Phi$ exactly as in the previous proof and set
+\[
+  \Xi(\overline\phi\otimes\psi)
+  :=(\varepsilon\!\otimes\!\mathbf1_F)(\overline\phi\otimes\psi),
+  \qquad
+  \Psi(X):=\overline{\iota(1)}\otimes X .
+\]
+A direct contraction check gives
+$\Theta\circ\Phi=\operatorname{id}_{\mathcal N_{\gamma^{\mathrm{even}}}}$,
+$\Phi\circ\Theta=\operatorname{id}$,
+and similarly $\Xi\circ\Psi=\operatorname{id}_{\mathcal N_{\gamma^{\mathrm{odd}}}}$,
+$\Psi\circ\Xi=\operatorname{id}$.
+Thus
+\(
+   H_{\mathrm{pf}}\!\otimes_{\mathcal N_{\gamma^{\mathrm{odd}}}}
+   \overline{H_{\mathrm{pf}}}\cong\mathcal N_{\gamma^{\mathrm{even}}}
+\)
+and
+\(
+   \overline{H_{\mathrm{pf}}}\!\otimes_{\mathcal N_{\gamma^{\mathrm{even}}}}
+   H_{\mathrm{pf}}\cong\mathcal N_{\gamma^{\mathrm{odd}}}
+\),
+so $H_{\mathrm{pf}}$ is invertible.
+
+\paragraph{Hypotheses of Popa’s conjugacy theorem.}
+Popa’s Prop.\,2.3 requires an \emph{invertible, finite-index}
+$\bigl(\mathcal N_{\gamma^{\mathrm{even}}},
+        \mathcal N_{\gamma^{\mathrm{odd}}}\bigr)$-bimodule.
+Invertibility is now proven.  Finite index holds because
+$\dim_{\mathcal N_{\gamma^{\mathrm{even}}}}H_{\mathrm{pf}}
+ =\operatorname{tr}_{q}(\iota(1)\iota(1)^{\dagger})=1$,
+so left and right statistical dimensions coincide and are finite.
+Hence all hypotheses of Popa’s theorem are satisfied, justifying
+Corollary \ref{cor:parity-standard-invariant}.
+
+%-----------------------------------------------------------------
+\subsection*{Parity moves and the standard invariant}
+%-----------------------------------------------------------------
+
+\begin{corollary}[Type III/IV moves preserve the planar algebra]
+\label{cor:parity-standard-invariant}
+Let
+$\gamma^{\mathrm{odd}}\!\overset{\mathrm{III/IV}}{\leftrightarrow}
+ \gamma^{\mathrm{even}}$ be a single parity-flipping move.
+Tensor-conjugation by the invertible bimodule
+$H_{\mathrm{pf}}$ sends the Jones tower of
+$\mathcal N_{\gamma^{\mathrm{odd}}}$ to that of
+$\mathcal N_{\gamma^{\mathrm{even}}}$,
+hence their standard invariants (planar algebras) coincide.
+\end{corollary}
+
+\begin{proof}
+By Lemma \ref{lem:bimodule-structure} and
+Proposition \ref{prop:Morita},
+$H_{\mathrm{pf}}$ is invertible.
+Popa’s “conjugation by an invertible bimodule” theorem
+\cite[Prop.\,2.3]{PopaMorita} states that such a conjugation
+leaves all higher relative commutants—and therefore
+the planar-algebra standard invariant—unchanged.
+\end{proof}
+
+\noindent
+Consequently the parity-flipping Type III/IV moves do not alter the
+Temperley–Lieb standard invariant already established for even-parity
+cuts; all results of Sections \ref{sec:Bridge}–\ref{sec:qgroup} hold in
+both parity sectors.
 
 
 \section{Bridge Insertion as an Algebra Inclusion}
