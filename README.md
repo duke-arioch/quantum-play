@@ -1,3 +1,28 @@
+# Loop Quantum Gravity and Entropy Study
+
+This repository began as a holding area for a fun python program I thought my be relavent in QC around entanglement. It changed into a bit more.
+
+The current direction aims at creating some proofs that can lead from a purely combinatoric and graph theoretic view of observer independence in LQG, to:
+
+1.  derivation of known physical constants
+2.  predictions of observable phenomena
+3.  operator theory work
+4.  a greater link between LQG and QI/QC
+5.  insights into the "why" behind some of how nature acts
+6.  a deeper understanding of time
+
+I am working through some minor biblio issues, as my source quoting was not as rigorous as it should be. If anyone wants to volunteer to help and has some better handle on what they are doing - please reach out!
+
+My current WIP:
+
+*   bridge-monotocity.pdf/tex - describes a way of calculating relational entropy
+*   entropy-spin-networks.pdf/tex - extends bridge-monotocity and shows an arrow of time and a chain leading to derivation of a known value
+*   operator-theory.pdf/tex
+
+---
+
+Here's the below part of the readme that contained just the first experiment.
+
 # Quantum Contextuality Demonstration
 
 This project demonstrates quantum contextuality in three-party quantum systems using Qiskit. It shows how different measurement contexts (reference frames) reveal different entanglement structures in the same quantum state, based on the Plávala-Gühne theorem connecting contextuality and entanglement.
