@@ -25,6 +25,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
@@ -89,7 +90,7 @@ A particularly simple process that changes the topology of a quantum geometry is
 \subsection{Literature review and context}
 \label{sec:litreview}
 
-Black-hole micro-state counting first exposed parity constraints on $\SU(2)$ invariant spaces \cite{AshtekarBaezCorichiKrasnov1998,RovelliBHEnt2005}. Entanglement in gauge theories was systematized in the "edge-mode" framework \cite{DonnellyWall2016,CasiniHuertaRosabal2014} and extended to LQG spin networks in \cite{Livine2017,BianchiMyersYokokura2018}. Character-orthogonality techniques similar to those we exploit appear in the analytic works of Freidel–Leigh–Perez \cite{FreidelLeighPerez2018} and in the $q$-deformed context of Turaev–Viro invariants \cite{FairbairnMeusburger2012}.
+Black-hole micro-state counting first exposed parity constraints on $\SU(2)$ invariant spaces \cite{AshtekarBaezCorichiKrasnov1998,RovelliBHEnt1996}. Entanglement in gauge theories was systematized in the "edge-mode" framework \cite{DonnellyWall2016,CasiniHuertaRosabal2014} and extended to LQG spin networks in \cite{Livine2018,BianchiDonaVilensky2019}. Character-orthogonality techniques similar to those we exploit appear in the analytic works of Freidel–Leigh–Perez \cite{FreidelLeighPerez2014} and in the $q$-deformed context of Turaev–Viro invariants \cite{FairbairnMeusburger2012}.
 
 Our contribution differs by focusing on \emph{dynamical} topology change: we give a closed-form formula for the entropy increment produced by a handle insertion and show that it realizes the minimal ER=EPR expectation. Linear additivity under multiple bridges links our result to entanglement-growth studies in many-body systems \cite{AlbaCalabrese2017} and provides an analytic benchmark for spin-foam numerics \cite{ChircoOritiRaskin2018}.
 
@@ -247,7 +248,7 @@ For the minimal even cut ($m=1$, i.e., two half-integer edges) $C_1=1$, $C_2=2$ 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\textwidth]{entropy_jump.png}
+\includegraphics[width=0.7\textwidth]{figures/entropy_jump.png}
 \caption{Relational-entropy jump $\Delta S_{\gamma}$ produced by a single spin-$\frac{1}{2}$ bridge as a function of the number $m$ of pre-existing spin-$\frac{1}{2}$ pairs on the cut. The jump rises monotonically from $\ln 2 \approx 0.693$ at $m=1$ and saturates at $\ln 4 \approx 1.386$ as $m \to \infty$.}
 \label{fig:entropy_jump}
 \end{figure}
@@ -449,7 +450,7 @@ The bridge moves studied in this paper arise naturally in several contexts withi
 \begin{itemize}
 \item \textbf{Spin foam evolution}: In the EPRL/FK models \cite{EnglePereira2008,FreidelKrasnov2008}, bridge configurations appear as elementary faces in the 2-complex connecting previously disconnected vertices. The amplitude for such processes depends on the spins $j_b$ and the boundary data.
 
-\item \textbf{Coarse-graining operations}: When implementing real-space renormalization on spin networks \cite{DittrichReview2014,OritiCG2014}, bridge insertions represent the fundamental "bond" moves that tensor network algorithms apply during graph refinement.
+\item \textbf{Coarse-graining operations}: When implementing real-space renormalization on spin networks \cite{DittrichReview2017,Oriti2008}, bridge insertions represent the fundamental "bond" moves that tensor network algorithms apply during graph refinement.
 
 \item \textbf{Hamiltonian dynamics}: In the canonical picture, the action of certain terms in the Hamiltonian constraint \cite{ThiemannQSD1998} can be interpreted as creating minimal handles between previously disconnected regions.
 \end{itemize}
@@ -474,7 +475,7 @@ In the quantum group case (Section \ref{sec:quantum_group}), the entropy increme
 
 \subsubsection{Benchmark data for spin-foam simulations}
 
-The closed-form formula for entropy jumps provides essential benchmark data for spin-foam Monte-Carlo codes and tensor-network coarse-graining algorithms. Current numerical explorations of EPRL and Barrett-Crane foams \cite{ChircoOritiRaskin2018,CharlesLivine2024} lack analytic calibrations for topology-changing moves. Our results furnish such benchmarks: they predict exactly how many gauge-singlet degrees of freedom a simulation must generate when it stitches two vertices by $k$ spin-$\frac{1}{2}$ edges (viz. $\Delta S_{\gamma} = k\ln 2$). Disagreement would signal either sampling errors or an incorrect implementation of the Gauss constraint.
+The closed-form formula for entropy jumps provides essential benchmark data for spin-foam Monte-Carlo codes and tensor-network coarse-graining algorithms. Current numerical explorations of EPRL and Barrett-Crane foams \cite{ChircoOritiRaskin2018,CharlesLivine2016} lack analytic calibrations for topology-changing moves. Our results furnish such benchmarks: they predict exactly how many gauge-singlet degrees of freedom a simulation must generate when it stitches two vertices by $k$ spin-$\frac{1}{2}$ edges (viz. $\Delta S_{\gamma} = k\ln 2$). Disagreement would signal either sampling errors or an incorrect implementation of the Gauss constraint.
 
 \subsubsection{Entanglement tsunami models}
 
@@ -486,7 +487,11 @@ The bridge-monotonicity theorem provides an elementary building block for analyz
 
 \subsubsection{Prospects for laboratory tests}
 
-Gauge-theory quantum simulators based on ultracold atoms now reach the $\SU(2)$ regime \cite{Zohar2023GaugeSim}. Their programmable links and on-site Gauss-law penalties allow the controlled creation of antiparallel spin ladders—the analogue of our bridges. Randomized-measurement protocols can access the R\'enyi-0 entropy of the gauge-invariant sector \cite{Dreyer2022GaugeRenyi}, making it possible to verify the universal entropy jump $\Delta S_{\gamma} = \ln(2j_b+1)$---for example, the Bell-pair value $\ln 2$ when the bridge carries spin $\frac{1}{2}$.
+Gauge-theory quantum simulators based on ultracold atoms now reach the $\SU(2)$ regime \cite{Zohar2022GaugeSim}. Their programmable links and on-site Gauss-law penalties allow the controlled creation of antiparallel spin ladders—the analogue of our bridges. 
+Randomized–measurement protocols developed for both generic qubit arrays and lattice–gauge simulators
+\cite{Brydges2019,Bringewatt2024,Leone2022} now allow direct extraction of the order-0 R\'enyi entropy \emph{within the
+gauge-invariant sector}, making it possible to verify the universal entropy
+jump $\Delta S_{\gamma}=\ln(2j_b+1)$—for example, the Bell-pair value $\ln 2$ when the bridge carries spin $\tfrac12$.
 
 \section{Outlook: Beyond Simple Bridges}
 \label{sec:outlook}
@@ -532,7 +537,7 @@ This truncation has profound physical consequences. For a spin-$j_{b}$ bridge, t
 
 This reproduces the expected holographic cap $S_{\max}=\ln\!\bigl((k+1)^{n_{\gamma}-1}\bigr)$ for de Sitter radius $\Lambda^{-1/2}\!\sim\!k\,\ell_{P}$, consistent with the Turaev-Viro state-sum \cite{TuraevViro1992}.
 
-The quantum group deformation is particularly relevant for quantum gravity with a positive cosmological constant, where the quantum deformation parameter $q$ is related to the cosmological constant by $q = e^{i\Lambda G\hbar}$ \cite{SmollinLambda1995}. In this context, our entropy formula acquires a natural cutoff that reflects the finite entropy bound in de Sitter space:
+The quantum group deformation is particularly relevant for quantum gravity with a positive cosmological constant, where the quantum deformation parameter $q$ is related to the cosmological constant by $q = e^{i\Lambda G\hbar}$ \cite{SmolinLambda1995}. In this context, our entropy formula acquires a natural cutoff that reflects the finite entropy bound in de Sitter space:
 
 \begin{equation}
 \Delta S_{\gamma} = \ln[\min(2j_b+1, k-2j_b+1)]
@@ -540,7 +545,7 @@ The quantum group deformation is particularly relevant for quantum gravity with 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\textwidth]{quantum_group_entropy_k10.pdf}
+\includegraphics[width=0.7\textwidth]{figures/quantum_group_entropy_k10.pdf}
 \caption{Entropy increment $\Delta S_{\gamma}$ for a spin-$j_b$ bridge in the quantum group $\SU(2)_k$ with $k=10$. The entropy initially grows as $\ln(2j_b+1)$ but reaches a maximum at $j_b=k/4$ and then decreases, reflecting the finite-dimensional nature of the quantum group representations.}
 \label{fig:quantum_group}
 \end{figure}
@@ -663,15 +668,15 @@ This ratio directly yields our entropy increment formula for a spin-$\frac{1}{2}
 
 \bibitem{AshtekarBaezCorichiKrasnov1998} A. Ashtekar, J. Baez, A. Corichi, and K. Krasnov, "Quantum geometry and black hole entropy," Phys. Rev. Lett. 80 (1998) 904-907.
 
-\bibitem{RovelliBHEnt2005} C. Rovelli, "Black hole entropy from loop quantum gravity," Phys. Rev. Lett. 77 (1996) 3288-3291.
+\bibitem{RovelliBHEnt1996} C. Rovelli, "Black hole entropy from loop quantum gravity," Phys. Rev. Lett. 77 (1996) 3288-3291.
 
 \bibitem{CasiniHuertaRosabal2014} H. Casini, M. Huerta, and J. A. Rosabal, "Remarks on entanglement entropy for gauge fields," Phys. Rev. D 89 (2014) 085012.
 
-\bibitem{Livine2017} E. R. Livine, "Intertwiner entanglement on spin networks," Phys. Rev. D 97 (2018) 026009.
+\bibitem{Livine2018} E. R. Livine, "Intertwiner entanglement on spin networks," Phys. Rev. D 97 (2018) 026009.
 
-\bibitem{BianchiMyersYokokura2018} E. Bianchi, R. C. Myers, and S. Yokoyama, "Entanglement entropy of spin networks," Class. Quant. Grav. 35 (2018) 214001.
+\bibitem{BianchiDonaVilensky2019} E. Bianchi, P. Donà, and I. Vilensky, "Entanglement entropy of Bell-network states in loop quantum gravity: Analytical and numerical results," Phys. Rev. D \textbf{99} (2019) 086013.
 
-\bibitem{FreidelLeighPerez2018} L. Freidel, A. Leigh, and D. Minic, "Quantum gravity, dynamical phase-space and string theory," Int. J. Mod. Phys. D 23 (2014) 1442006.
+\bibitem{FreidelLeighPerez2014} L. Freidel, A. Leigh, and D. Minic, "Quantum gravity, dynamical phase-space and string theory," Int. J. Mod. Phys. D 23 (2014) 1442006.
 
 \bibitem{FairbairnMeusburger2012} W. J. Fairbairn and C. Meusburger, "Quantum deformation of two four-dimensional spin foam models," J. Math. Phys. 53 (2012) 022501.
 
@@ -679,25 +684,29 @@ This ratio directly yields our entropy increment formula for a spin-$\frac{1}{2}
 
 \bibitem{ChircoOritiRaskin2018} F. Chirco, D. Oriti, and M. Zhang, "Group field theory and tensor networks: towards a Ryu-Takayanagi formula in full quantum gravity," Class. Quant. Grav. 35 (2018) 115011.
 
-\bibitem{CharlesLivine2024} C. Charles and E. R. Livine, "The Ponzano-Regge model revisited: Tensor network and statistical physics," Phys. Rev. D 101 (2020) 126013.
+\bibitem{CharlesLivine2016} C. Charles and E. R. Livine, ``The Fock space of loopy spin networks for quantum gravity,'' Gen. Relativ. Gravit. \textbf{48} (2016) 113.
 
-\bibitem{Zohar2023GaugeSim} E. Zohar, "Quantum simulation of lattice gauge theories in more than one space dimension—requirements, challenges and methods," Phil. Trans. R. Soc. A 380 (2022) 20210064.
-
-\bibitem{Dreyer2022GaugeRenyi} O. Dreyer and F. Markopoulou, "Renyi entropy in quantum gravity," Nucl. Phys. B 938 (2019) 639-653.
+\bibitem{Zohar2022GaugeSim} E. Zohar, "Quantum simulation of lattice gauge theories in more than one space dimension—requirements, challenges and methods," Phil. Trans. R. Soc. A 380 (2022) 20210069.
 
 \bibitem{EnglePereira2008} J. Engle, E. Livine, R. Pereira, and C. Rovelli, "LQG vertex with finite Immirzi parameter," Nucl. Phys. B 799 (2008) 136-149.
 
 \bibitem{FreidelKrasnov2008} L. Freidel and K. Krasnov, "A New Spin Foam Model for 4d Gravity," Class. Quant. Grav. 25 (2008) 125018.
 
-\bibitem{DittrichReview2014} B. Dittrich, "The continuum limit of loop quantum gravity - a framework for solving the theory," in Loop Quantum Gravity: The First 30 Years (2017) 153-179.
+\bibitem{DittrichReview2017} B. Dittrich, "The continuum limit of loop quantum gravity - a framework for solving the theory," in Loop Quantum Gravity: The First 30 Years (2017) 153-179.
 
-\bibitem{OritiCG2014} D. Oriti, "Group field theory as the microscopic description of the quantum spacetime fluid: A new perspective on the continuum in quantum gravity," PoS QG-PH (2007) 030.
+\bibitem{Oriti2008} D. Oriti, ``Group field theory as the microscopic quantum description of the spacetime fluid,'' PoS QG-PH \textbf{2007} (2008) 030.
 
 \bibitem{ThiemannQSD1998} T. Thiemann, "Quantum spin dynamics (QSD)," Class. Quant. Grav. 15 (1998) 839-873.
 
 \bibitem{TuraevViro1992} V. G. Turaev and O. Y. Viro, "State sum invariants of 3-manifolds and quantum 6j-symbols," Topology 31 (1992) 865-902.
 
-\bibitem{SmollinLambda1995} L. Smolin, "Linking topological quantum field theory and nonperturbative quantum gravity," J. Math. Phys. 36 (1995) 6417-6455.
+\bibitem{SmolinLambda1995} L. Smolin, "Linking topological quantum field theory and nonperturbative quantum gravity," J. Math. Phys. 36 (1995) 6417-6455.
+
+\bibitem{Brydges2019} T. Brydges, A. Elben, P. Jurcevic, et al., `Probing R\'enyi entanglement entropy via randomized measurements,'' \textit{Science} \textbf{364} (2019) 260--263.
+
+\bibitem{Bringewatt2024} J. Bringewatt, J. Kunjummen, N. Mueller, `Randomized measurement protocols for lattice gauge theories,'' \textit{Quantum} \textbf{8} (2024) 1300, arXiv:2303.15519.
+
+\bibitem{Leone2022} L. Leone, S. F. E. Oliviero, A. Hamma, `Stabilizer R\'enyi entropy,'' \textit{Phys. Rev. Lett.} \textbf{128} (2022) 050402.
 
 \end{thebibliography}
 
