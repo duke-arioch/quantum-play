@@ -801,6 +801,21 @@ supporting the operator–algebraic proof.
 A detailed analytic derivation of the associated $9j$ recoupling identities
 will be presented elsewhere.
 
+\paragraph{Lean formalization.}
+Three Lean 4 files (\texttt{LinkedBridgeTL.lean}, \texttt{EntropyAdditivity.lean}, 
+\texttt{OperatorTheory.lean}) provide machine-verified proofs of the key 
+theorems, using only Lean's core library. Classical results like 9j-symbol 
+identities and the Connes–Hiai entropy formula are axiomatized with clear 
+literature references. The formalization verifies:
+\begin{itemize}
+\item The Temperley–Lieb idempotent relation $e_{\text{link}}^2 = \delta^{-2} e_{\text{link}}$ 
+      for linked bridges (subject to the 9j identity)
+\item The entropy additivity formula $S(\gamma_n) - S(\gamma_0) = \sum \ln[\mathcal{N}_{\gamma_i} : \mathcal{N}_{\gamma_{i-1}}]$
+\item Consistency between the operator-algebraic and combinatorial approaches
+\end{itemize}
+The scripts compile with a fresh Lean 4 installation and demonstrate that 
+the logical structure under our control has been mechanically checked.
+
 
 \section{Linked bridges and 9j recouplings}\label{sec:9j}
 
