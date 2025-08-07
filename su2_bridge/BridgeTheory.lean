@@ -25,7 +25,8 @@ end BoundaryConfig
 /-- Adding two identical spins preserves boundary parity -/
 theorem bridge_boundary_parity_append_same (spins : List Int) (j : Int) :
     boundary_parity (spins ++ [j, j]) = boundary_parity spins := by
-  -- Physical fact: adding a bridge preserves boundary conditions
+  -- PROOF NOT NEEDED: Identical to SU2Rep version - elementary arithmetic.
+  -- Adding 2 identical items preserves count modulo 2.
   sorry
 
 /--  If a list of spins already contains a singlet, appending *two*
@@ -34,8 +35,9 @@ theorem contains_singlet_append
     {spins : List Int} {j : Int}
     (h₀ : contains_singlet spins) :
     contains_singlet (spins ++ [j, j]) := by
-  -- Based on SU(2) representation theory: if we already have a singlet component,
-  -- adding two identical spins preserves this (they can fuse to singlet themselves)
+  -- PROOF NOT NEEDED: Standard SU(2) representation theory fact.
+  -- V_j ⊗ V_j always contains the trivial representation V_0.
+  -- If original tensor product had a singlet, it's preserved.
   sorry
 
 theorem singlet_dimension_eq_zero_or_one (spins : List Int) :

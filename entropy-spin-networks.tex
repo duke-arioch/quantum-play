@@ -79,9 +79,9 @@ gravity spin foams.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Introduction} We extend the ``bridge-monotonicity'' result of \cite{Sandoz2025}—where entropy growth was proved for homogeneous spin-$\tfrac12$ boundaries—to \emph{arbitrary} spin data and to a finitely generated system of local graph rewrites.
+\section{Introduction} We extend the ``bridge-monotonicity'' result of \cite{SandozBridgeMonotonicity2025}—where entropy growth was proved for homogeneous spin-$\tfrac12$ boundaries—to \emph{arbitrary} spin data and to a finitely generated system of local graph rewrites.
 
-Spin networks are treated as \emph{purely combinatorial} objects: no background geometry, embedding, or metric structure is assumed. The only dynamics we allow are \textbf{gauge-preserving rewrites}—local moves that respect the $\SU$ Gauss constraint at every vertex. This mirrors the physical requirement in loop quantum gravity (LQG) that quantum states lie in the gauge-invariant subspace and ensures every rewrite corresponds to a physically allowed transformation. Such rewrites can be viewed as the microscopic faces of Pachner moves in spin-foam amplitudes, providing a discrete, background-free notion of evolution. We show that a suitably defined entropy on the cut acts as a \emph{relational clock} for these moves, recovering the Catalan growth of \cite{Sandoz2025} as a special case.
+Spin networks are treated as \emph{purely combinatorial} objects: no background geometry, embedding, or metric structure is assumed. The only dynamics we allow are \textbf{gauge-preserving rewrites}—local moves that respect the $\SU$ Gauss constraint at every vertex. This mirrors the physical requirement in loop quantum gravity (LQG) that quantum states lie in the gauge-invariant subspace and ensures every rewrite corresponds to a physically allowed transformation. Such rewrites can be viewed as the microscopic faces of Pachner moves in spin-foam amplitudes, providing a discrete, background-free notion of evolution. We show that a suitably defined entropy on the cut acts as a \emph{relational clock} for these moves, recovering the Catalan growth of \cite{SandozBridgeMonotonicity2025} as a special case.
 
 \paragraph{Concrete physical vignette.}
 
@@ -480,7 +480,7 @@ $\dim\Inv(V_k\otimes V_\ell)=\delta_{k\ell}$ and linearity,
 This is exactly the Verlinde multiplicity pairing.
 \end{proof}
 
-\begin{lemma}[Self-tensor spectrum \cite{FultonHarris1991}]\label{lem:selftensor} $V_j\otimes V_j\cong\bigoplus_{\ell=0}^{2j}V_{\ell}$ with multiplicity~$1$ for each $\ell$. \end{lemma}
+\begin{lemma}[Self-tensor spectrum \cite{FultonHarris2004}]\label{lem:selftensor} $V_j\otimes V_j\cong\bigoplus_{\ell=0}^{2j}V_{\ell}$ with multiplicity~$1$ for each $\ell$. \end{lemma}
 
 \subsection{Main theorems}
 
@@ -512,7 +512,7 @@ $\SU(2)$ with its level-$k$ quantum
 group $\mathrm{SU}(2)_k$.  In that setting the spin label satisfies
 $0 \le j_b \le k/2$ and the fusion rules acquire a
 truncation\footnote{See, e.g.\ 
-\cite[Sect.~4]{Freidel2005}.}  
+\cite[Sect.~4]{Freidel2003}.}  
 $V_{j_1}\otimes_q V_{j_2}
  = \bigoplus_{j=|j_1-j_2|}^{\min(j_1+j_2,k-j_1-j_2)} V_j$.
 Repeating the proof of Theorem~\ref{thm:bridge} with the
@@ -607,7 +607,7 @@ By Lemma~\ref{lem:pairing} this gives
 
 \section{Spin-$\tfrac12$ Catalan Benchmark}\label{sec:catalan}
 
-\begin{corollary}[Recovery of \cite{Sandoz2025}] With $2m$ spin-$\tfrac12$ edges, $d_0=C_m$, $d_1=C_{m+1}$, $\Delta S=\ln(C_{m+1}/C_m)=\ln\bigl(\tfrac{4m+2}{m+2}\bigr)$. \end{corollary}
+\begin{corollary}[Recovery of \cite{SandozBridgeMonotonicity2025}] With $2m$ spin-$\tfrac12$ edges, $d_0=C_m$, $d_1=C_{m+1}$, $\Delta S=\ln(C_{m+1}/C_m)=\ln\bigl(\tfrac{4m+2}{m+2}\bigr)$. \end{corollary}
 
 % ——— entropy-growth figure ———
 \begin{figure}[!htbp]
@@ -853,22 +853,21 @@ random admissible bridges satisfy $\Delta S\ge0$.
 
 \begin{thebibliography}{8}
 
-\bibitem{Sandoz2025} M.~Sandoz, “Bridge monotonicity and Catalan entropy in spin-½ networks,” 2025, arXiv:2507.00001.
+\bibitem{SandozBridgeMonotonicity2025} 
+M. Sandoz, ``Catalan Numbers and Entropy Growth in Quantum Geometry,'' 
+unpublished manuscript, https://github.com/duke-arioch/quantum-play/blob/main/bridge-monotonicity.pdf (2025).
 
 \bibitem{RovelliVidotto2014} C.~Rovelli and F.~Vidotto, \emph{Covariant Loop Quantum Gravity}, Cambridge Univ. Press, 2014.
 
 \bibitem{Baez1996} J.~C.~Baez, “Spin network states in gauge theory,” \emph{Adv. Math.} 117 (1996) 253–272.
 
-\bibitem{Freidel2005} L.~Freidel and D.~Louapre, ``Diffeomorphisms and spin foam models,'' \emph{Nucl. Phys. B} 662 (2005) 279-298.
+\bibitem{Freidel2003} L.~Freidel and D.~Louapre, ``Diffeomorphisms and spin foam models,'' \emph{Nucl. Phys. B} 662 (2003) 279-298.
 
-\bibitem{FultonHarris1991} W.~Fulton and J.~Harris, \emph{Representation Theory}, Springer GTM 129, 1991.
+\bibitem{FultonHarris2004} W.~Fulton and J.~Harris, \emph{Representation Theory}, Springer GTM 129, 2004.
 
 \bibitem{AshtekarKrishnan2004} A.~Ashtekar and B.~Krishnan, “Isolated and dynamical horizons and their applications,” \emph{Living Reviews in Relativity} 7 (2004) 10.
 
-\bibitem{Yutsis1962}
-A.\,P.~Yutsis, I.\,B.~Levinson and V.\,V.~Vanagas,
-\emph{Mathematical Apparatus of the Theory of Angular Momentum},
-Israel Program for Scientific Translations, Jerusalem, 1962.
+\bibitem{Yutsis1964} A.\,P.~Yutsis, I.\,B.~Levinson and V.\,V.~Vanagas, \emph{Mathematical Apparatus of the Theory of Angular Momentum}, Israel Program for Scientific Translations, Jerusalem, 1964, DOI: 10.1016/0029-5582(64)90065-3.
 
 \bibitem{BoothFairhurst2007}
   I.~Booth and S.~Fairhurst, “Isolated, slowly evolving, and dynamical trapping horizons:\\

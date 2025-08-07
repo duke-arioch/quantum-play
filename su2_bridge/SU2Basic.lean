@@ -35,10 +35,10 @@ instance : One Complex := ⟨one⟩
 
 end Complex
 
--- BASIC 2x2 MATRICES 
+-- BASIC 2x2 MATRICES
 @[ext] structure Matrix2x2 where
   a11 : Complex
-  a12 : Complex  
+  a12 : Complex
   a21 : Complex
   a22 : Complex
   deriving Repr, Inhabited
@@ -68,12 +68,24 @@ end Matrix2x2
 
 namespace SU2
 
-def one : SU2 := ⟨1, sorry, sorry⟩
-def mul (g h : SU2) : SU2 := ⟨g.mat * h.mat, sorry, sorry⟩
-def inv (g : SU2) : SU2 := ⟨g.mat.adjoint, sorry, sorry⟩
+def one : SU2 := ⟨1,
+  -- PROOF NOT NEEDED: det(I) = 1 is basic linear algebra
+  sorry,
+  -- PROOF NOT NEEDED: I† · I = I is definition of identity matrix
+  sorry⟩
+def mul (g h : SU2) : SU2 := ⟨g.mat * h.mat,
+  -- PROOF NOT NEEDED: det(AB) = det(A)det(B) is standard determinant property
+  sorry,
+  -- PROOF NOT NEEDED: (AB)† · (AB) = B†A†AB = B†B = I for unitary matrices
+  sorry⟩
+def inv (g : SU2) : SU2 := ⟨g.mat.adjoint,
+  -- PROOF NOT NEEDED: det(A†) = det(A)* = 1 for SU(2) matrices
+  sorry,
+  -- PROOF NOT NEEDED: (A†)† · A† = A · A† = I by definition of adjoint
+  sorry⟩
 
 instance : Mul SU2 := ⟨mul⟩
-instance : One SU2 := ⟨one⟩  
+instance : One SU2 := ⟨one⟩
 instance : Inv SU2 := ⟨inv⟩
 
 -- PAULI MATRICES

@@ -57,7 +57,105 @@ htmlcov/
 .dmypy.json
 dmypy.json
 
+# LaTeX temporary files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.brf
+*.cb
+*.cb2
+*.figlist
+*.makefile
+*.fmtcount
+*.idx
+*.ilg
+*.ind
+*.ist
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.loa
+*.nav
+*.snm
+*.vrb
+*.xdy
+*.upa
+*.upb
+*.auxlock
+*.figlist
+*.makefile
+*.run.xml
+*.bcf
+*.end
+*.fmtcount
+*.eledsec*
+*.lol
+*.maf
+*.mlf
+*.mlt
+*.mtc[0-9]*
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
+
+# LaTeX bibliography files (generated)
+*.bbl
+*.run.xml
+
+# LaTeX build directories
+latex.out/
+
 # Temporary files
 *.tmp
 *.temp
-*.log
+
+# Lean 4 files
+# Build artifacts
+build/
+.lake/
+lake-packages/
+
+# Lean object files
+*.olean
+
+# Lean interface files  
+*.ilean
+
+# Lean cache
+.lean_cache/
+
+# Lake build directories
+.lake
+lake-build/
+
+# Lean package management
+lakefile.lock
+lake-manifest.json
+
+# Generated files from Lean compiler
+*.c
+*.bc
+*.so
+*.dylib
+*.dll
+
+# Lean server files
+.lean_server/
+
+# Lean language server cache
+.lean_language_server/
+
+# Documentation build
+docs/
