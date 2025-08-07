@@ -14,6 +14,24 @@ name = "SU2Rep"
 [[lean_lib]]
 name = "BridgeTheory"
 
+[[lean_lib]]
+name = "SpinNetworks"
+
+[[lean_lib]]
+name = "Rewrites"
+
+[[lean_lib]]
+name = "EntropyTheorems"
+
+[[lean_lib]]
+name = "ParityTheory"
+
+[[lean_lib]]
+name = "MainResults"
+
+[[lean_lib]]
+name = "Examples"
+
 [[lean_exe]]
 name = "su2_bridge"
 root = "Main"
