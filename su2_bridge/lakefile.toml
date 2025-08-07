@@ -1,0 +1,19 @@
+name = "su2_bridge"
+version = "0.1.0"
+defaultTargets = ["su2_bridge"]
+
+[[lean_lib]]
+name = "SU2Basic"
+
+[[lean_lib]]
+name = "Combinatorics"
+
+[[lean_lib]]
+name = "SU2Rep"
+
+[[lean_lib]]
+name = "BridgeTheory"
+
+[[lean_exe]]
+name = "su2_bridge"
+root = "Main"
