@@ -8,7 +8,6 @@
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools} 
-\usepackage{booktabs} 
 \usepackage{hyperref} 
 \usepackage{tikz-cd} 
 \usepackage[utf8]{inputenc}
@@ -16,6 +15,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{enumitem}
+\usepackage{booktabs}
 \lstset{
   basicstyle=\ttfamily\footnotesize,
   keywordstyle=\color{blue},
@@ -69,7 +69,9 @@ Consequently $S_{\gamma}$ supplies a discrete, monotonic “clock’’ that
 orders allowed rewrite histories without referencing an external time
 parameter.  We identify a parity obstruction that freezes the clock when
 the cut carries an odd number of half-integer spins and outline two
-minimal parity-changing moves that restore monotonicity.  The framework
+minimal parity-changing moves that restore monotonicity. We also analyze
+bridge overlap configurations via 9j-symbol identities and provide a
+computer-verified Lean formalization of the underlying Temperley--Lieb algebra.  The framework
 provides a combinatorial analogue of the Hawking area theorem and offers
 a concrete realisation of thermal-time evolution within loop quantum
 gravity spin foams.
@@ -101,6 +103,14 @@ tracks coarse-graining over modes exiting the Hubble radius
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{remark}
+The $9j$ criterion offers a systematic alternative to the ad~hoc
+"check–after–each–step'' rule of Remark~\ref{rem:simul}:
+one may pre–compute the overlap obstruction by tabulating the relevant
+$9j$ symbols.  Physically, a non–zero sum signals an interference phase
+between the two competing fusion channels, analogous to the relative
+phase in coupled angular‐momentum recoupling schemes. The mathematical rigor of these identities has been computer-verified through Temperley--Lieb algebra formalization.
+\end{remark}
 
 
 \section{Spin Networks, Cuts, and Entropy}
@@ -241,7 +251,7 @@ Example~\ref{ex:overlap} illustrates this order dependence.
 
 When two admissible bridges share a common vertex, the singlet
 multiplicity after both moves depends on the \emph{order} in which the
-new spins are fused.  Let the first bridge carry spin $j_a$ and the
+new spins are fused.\footnote{A computer-verified Lean 4 formalization of the Temperley--Lieb relations and 9j-symbol identities for overlapping bridges is available at \texttt{github.com/duke-arioch/quantum-play}.}  Let the first bridge carry spin $j_a$ and the
 second bridge carry spin $j_b$; both attach to the same vertex
 $u\in A$.  Denote by $(j_1,j_2,j_3)$ the original spins incident at
 $u$ and by $d_0=\dim\Inv(V_{j_1}V_{j_2}V_{j_3})$ the initial singlet
@@ -269,7 +279,7 @@ are equivalent precisely when the associated $9j$ symbol is zero.
 \begin{proof}
 Insert resolutions of identity in the two possible fusion channels and
 compare the resulting tensor traces (details as in
-\cite[Eq.\,(3.9)]{Yutsis1962}).  The difference is a single
+\cite[Eq.\,(3.9)]{Yutsis1964}).  The difference is a single
 $9j$--coefficient summed over the intermediate spin $J$.
 \end{proof}
 
@@ -685,6 +695,7 @@ one of the 3 000 accepted moves}, yielding an empirical confidence level
 of $>99.9\%$ that admissible bridges satisfy $\Delta S\ge0$.
 
 Future avenues include parity-changing moves, $q$-deformed quantum groups,
+computer-verified extensions of the 9j-symbol formalism to higher-order overlaps,
 and links to tensor-network renormalisation where similar local moves govern
 entanglement flow.
 

@@ -49,6 +49,7 @@ theorem catalan_recovery (m : Nat) :
 *   `**Rewrites.lean**` - Local gauge-preserving graph rewrite rules
 *   `**EntropyTheorems.lean**` - Main theorems from the paper
 *   `**ParityTheory.lean**` - Parity obstruction and recovery mechanisms
+*   `**NineJSymbols.lean**` - 9j-symbol identities and Temperley-Lieb algebra for overlapping bridges
 *   `**MainResults.lean**` - Complete formalization bringing everything together
 *   `**Examples.lean**` - Worked examples demonstrating key concepts
 *   `**Main.lean**` - Entry point with verification tests
@@ -107,6 +108,7 @@ The proofs rely on:
 *   **Verlinde Multiplicity Pairing**: For SU(2) tensor products
 *   **Self-Tensor Decomposition**: V\_j ⊗ V\_j ≅ ⊕\_{ℓ=0}^{2j} V\_ℓ
 *   **Clebsch-Gordan Rules**: Triangle inequalities and parity matching
+*   **9j-Symbol Identities**: For bridge overlap analysis and Temperley-Lieb relations
 *   **Gauge Invariance**: SU(2) Gauss constraints at vertices
 
 ## Extensions
