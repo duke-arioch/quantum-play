@@ -13,11 +13,13 @@ The current direction aims at creating some proofs that can lead from a purely c
 
 I am working through some minor biblio issues, as my source quoting was not as rigorous as it should be. If anyone wants to volunteer to help and has some better handle on what they are doing - please reach out!
 
-My current WIP:
+My current work:
 
 *   bridge-monotocity.pdf/tex - describes a way of calculating relational entropy
 *   entropy-spin-networks.pdf/tex - extends bridge-monotocity and shows an arrow of time and a chain leading to derivation of a known value
 *   operator-theory.pdf/tex
+
+RECENT UPDATE: added LEAN for beginning more rigorous proofs. I've faced a lot of skepticism due to my lack of background and "just throwing something together using AI (Partially true) - I hope this will ameliorate some concerns that I am not being sufficiently rigorous.
 
 ---
 
