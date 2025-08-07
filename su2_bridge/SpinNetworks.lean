@@ -7,9 +7,9 @@ import SU2Rep
 
 /-- A finite oriented graph with vertex and edge sets -/
 structure Graph where
-  vertices : Finset Nat
-  edges : Finset (Nat × Nat)
-  edge_valid : ∀ (v, w) ∈ edges, v ∈ vertices ∧ w ∈ vertices
+  vertices : List Nat
+  edges : List (Nat × Nat)
+  edge_valid : ∀ e ∈ edges, e.1 ∈ vertices ∧ e.2 ∈ vertices
 
 /-- SU(2) irrep label on an edge (stored as twice_j) -/
 structure EdgeLabel where
@@ -35,19 +35,19 @@ namespace SpinNetwork
 
 /-- Partition of vertices into regions A and B -/
 structure Partition (sn : SpinNetwork) where
-  region_A : Finset Nat
-  region_B : Finset Nat
-  covers_all : region_A ∪ region_B = sn.graph.vertices
-  disjoint : region_A ∩ region_B = ∅
+  region_A : List Nat
+  region_B : List Nat
+  covers_all : ∀ v ∈ sn.graph.vertices, v ∈ region_A ∨ v ∈ region_B
+  disjoint : ∀ v, ¬(v ∈ region_A ∧ v ∈ region_B)
 
 /-- Definition 2: Cut - edges crossing the partition -/
-def cut (sn : SpinNetwork) (p : Partition sn) : Finset (Nat × Nat) :=
+def cut (sn : SpinNetwork) (p : Partition sn) : List (Nat × Nat) :=
   sn.graph.edges.filter (fun (v, w) =>
     (v ∈ p.region_A ∧ w ∈ p.region_B) ∨ (v ∈ p.region_B ∧ w ∈ p.region_A))
 
 /-- Boundary multiset of spins on the cut -/
 def boundary_spins (sn : SpinNetwork) (p : Partition sn) : List Int :=
-  (cut sn p).toList.map (fun edge =>
+  (cut sn p).map (fun edge =>
     match sn.edge_labels.find? (fun label => label.edge = edge) with
     | some label => label.twice_j
     | none => 0)  -- Default case (shouldn't happen with well-formed networks)

@@ -16,10 +16,15 @@ I am working through some minor biblio issues, as my source quoting was not as r
 My current work:
 
 *   bridge-monotocity.pdf/tex - describes a way of calculating relational entropy
-*   entropy-spin-networks.pdf/tex - extends bridge-monotocity and shows an arrow of time and a chain leading to derivation of a known value
-*   operator-theory.pdf/tex
+*   entropy-spin-networks.pdf/tex - extends bridge-monotocity and shows an arrow of time and a chain leading to derivation of a known value  
+*   operator-theory.pdf/tex - operator-algebraic perspective using von Neumann algebras and Jones subfactor theory
 
-RECENT UPDATE: added LEAN for beginning more rigorous proofs. I've faced a lot of skepticism due to my lack of background and "just throwing something together using AI (Partially true) - I hope this will ameliorate some concerns that I am not being sufficiently rigorous.
+**LEAN FORMALIZATION**: Added rigorous Lean 4 proofs in the `su2_bridge/` directory:
+*   **Combinatorial approach**: Direct counting methods, Verlinde multiplicities, spin network rewrites
+*   **Operator-algebraic approach**: Temperley-Lieb projectors, entropy additivity, Jones index theory
+*   **Machine verification**: Both approaches yield the same entropy formula, providing strong consistency checks
+
+The Lean formalization addresses concerns about mathematical rigor by providing machine-checkable proofs of the key theorems, with classical results (9j symbols, von Neumann algebra theory) clearly axiomatized with literature references.
 
 ---
 

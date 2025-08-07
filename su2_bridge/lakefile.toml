@@ -1,7 +1,10 @@
 name = "su2_bridge"
-version = "0.1.0"
+version = "0.2.0"
 defaultTargets = ["su2_bridge"]
+description = "Lean 4 formalization of entropy monotonicity in spin networks with operator-algebraic extensions"
+homepage = "https://github.com/duke-arioch/quantum-play"
 
+# Core combinatorial approach libraries
 [[lean_lib]]
 name = "SU2Basic"
 
@@ -32,6 +35,17 @@ name = "MainResults"
 [[lean_lib]]
 name = "Examples"
 
+# Operator-algebraic extensions
+[[lean_lib]]
+name = "LinkedBridgeTL"
+
+[[lean_lib]]
+name = "EntropyAdditivity"
+
+[[lean_lib]]
+name = "OperatorTheory"
+
+# Main executable
 [[lean_exe]]
 name = "su2_bridge"
 root = "Main"
