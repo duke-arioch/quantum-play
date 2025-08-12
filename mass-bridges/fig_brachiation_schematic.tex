@@ -1,0 +1,100 @@
+% Compile this file (pdflatex) to produce fig_brachiation_schematic.pdf
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathmorphing}
+
+\begin{document}
+\begin{tikzpicture}[
+    dot/.style={circle,fill=black,inner sep=1.3pt},
+    anchor/.style={circle,fill=black,inner sep=2.2pt},
+    faded/.style={opacity=0.35},
+    bridge/.style={line width=1pt},
+    newbridge/.style={line width=1pt, dashed},
+    swap/.style={-{Latex[length=3mm]},line width=0.8pt},
+    cut/.style={dotted, line width=0.6pt},
+    region/.style={draw=gray!60, rounded corners=3pt}
+  ]
+
+  % Layout parameters
+  \def\dx{6.2}
+  \def\dy{3.0}
+
+  % Regions A and B boxes
+  \node[region, minimum width=4.6cm, minimum height=5.4cm, label={[gray!60]above:A}] (A1) at (0,0) {};
+  \node[region, minimum width=4.6cm, minimum height=5.4cm, label={[gray!60]above:B}] (B1) at (\dx,0) {};
+
+  % Time labels
+  \node at ($(A1.north west)+(0.2,-0.35)$) {\small Step $t$};
+  \node at ($(B1.north east)+(-0.2,-0.35)$) { };
+
+  % Nodes in A at step t
+  \coordinate (u)  at ($(A1.center)+(0.0,0.8)$);
+  \coordinate (up) at ($(A1.center)+(0.9,-0.8)$);
+  \coordinate (aaux) at ($(A1.center)+(-1.2,-1.2)$);
+
+  % Nodes in B at step t
+  \coordinate (v)  at ($(B1.center)+(-0.2,0.2)$);
+  \coordinate (baux1) at ($(B1.center)+(-1.2,-0.9)$);
+  \coordinate (baux2) at ($(B1.center)+(1.1,-0.6)$);
+
+  % Draw internal network hints
+  \draw[gray!35] (aaux) .. controls +(.6,.6) and +(-.8,.4) .. (u);
+  \draw[gray!35] (baux1) .. controls +(.6,.6) and +(-.8,.4) .. (v);
+  \draw[gray!35] (baux2) .. controls +(-.6,.6) and +(.8,.2) .. (v);
+
+  % Anchors at step t
+  \node[anchor,label=left:$u$] at (u) {};
+  \fill[anchor] (u) circle (1pt);
+  \node[anchor,label=right:$v$] at (v) {};
+  \fill[anchor] (v) circle (1pt);
+
+  % Bridge at step t
+  \draw[bridge] (u) .. controls +(.8,.2) and +(-.9,-.1) .. (v);
+  \node[above] at ($ (u)!0.55!(v) + (0,0.25)$) {\small bridge $j_b$};
+
+  % Partition cut (for intuition only)
+  \draw[cut] ($(A1.east)+(0,2.7)$) -- ($(A1.east)+(0,-2.7)$);
+  \node[gray!70, rotate=90] at ($(A1.east)+(0,0)$) {\tiny cut $\gamma$};
+
+  % Arrow to Step t+1
+  \node at ($(A1.south)!0.5!(B1.south)+(0,-0.6)$) { };
+  \draw[swap] ($(A1.south)!0.5!(B1.south)+(0,-0.4)$) -- ++(0,-0.8) node[midway,right] {\small swap to $u'$};
+
+  % Step t+1 regions (ghosted in same frame for compactness)
+  \node[region, minimum width=4.6cm, minimum height=5.4cm, faded] (A2) at (0,-\dy) {};
+  \node[region, minimum width=4.6cm, minimum height=5.4cm, faded] (B2) at (\dx,-\dy) {};
+  \node[faded] at ($(A2.north west)+(0.2,-0.35)$) {\small Step $t{+}1$};
+
+  % New anchor u' in A (below)
+  \coordinate (up2) at ($(A2.center)+(1.0,-0.6)$);
+  \coordinate (uold2) at ($(A2.center)+(0.0,0.8)$);
+  \coordinate (v2) at ($(B2.center)+(-0.1,0.2)$);
+
+  % Internal hints in faded frame
+  \draw[gray!35,faded] ($(A2.center)+(-1.0,-1.2)$) .. controls +(.6,.6) and +(-.8,.4) .. (up2);
+  \draw[gray!35,faded] ($(B2.center)+(-1.0,-0.9)$) .. controls +(.6,.6) and +(-.8,.4) .. (v2);
+
+  % Nodes (faded)
+  \fill[anchor,faded] (uold2) circle (1pt);
+  \node[anchor,faded,label=left:$u$] at (uold2) {};
+  \fill[anchor,faded] (v2) circle (1pt);
+  \node[anchor,faded,label=right:$v$] at (v2) {};
+  \fill[anchor] (up2) circle (1pt);
+  \node[anchor,label=left:$u'$] at (up2) {};
+
+  % Old bridge faded; new bridge dashed
+  \draw[bridge,faded] (uold2) .. controls +(.8,.2) and +(-.9,-.1) .. (v2);
+  \draw[newbridge] (up2) .. controls +(.7,.0) and +(-.8,0.1) .. (v2);
+  \node[above] at ($ (up2)!0.55!(v2) + (0,0.25)$) {\small new bridge $j_b$};
+
+  % Legend
+  \begin{scope}[shift={(8.6, -1.1)}]
+    \node[anchor] (L1) at (0,0) {};
+    \node[right=6pt of L1] {anchor};
+    \draw[bridge] (0,-0.5) -- ++(0.8,0) node[right=6pt] {bridge ($t$)};
+    \draw[newbridge] (0,-1.0) -- ++(0.8,0) node[right=6pt] {bridge ($t{+}1$)};
+    \draw[cut] (0,-1.5) -- ++(0.8,0) node[right=6pt] {cut $\gamma$};
+  \end{scope}
+
+\end{tikzpicture}
+\end{document}

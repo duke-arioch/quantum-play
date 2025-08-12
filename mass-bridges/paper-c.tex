@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{enumitem}
+
+\title{Geometric Genesis III: Mass \\& Lifetime Ladders in Quantum Geometry}
+\author{Matthew Sandoz}
+\date{\\today}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\graphicspath{{./}{/mnt/data/}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  We develop a formalism for extracting geometric depth, conduit counts, and lifetime scaling from observed particle masses. Using the operator-algebraic budgets $(\kappa,d,m,\Delta_{\rm int})$, we invert the mass formula, derive convexity bounds (K-rigidity), and propose falsifiable constraints on ladder fits across sectors.
+\end{abstract}
+
+\section{Introduction}
+We investigate the ladder-like structure of particle masses, interpreting each step as a geometric process in a spin-network background. Parameters are obtained from operator-algebraic entropy budgets and inverted to yield geometric depths and lifetimes.
+
+\section{Parameter Definitions and Provenance}
+We work with four fundamental parameters derived from the operator-algebraic framework:
+\begin{itemize}
+  \item $\kappa = -2\ln s_2$: geometric suppression from bridge transfer
+  \item $d$: quantum dimension of neutralizer representations
+  \item $m$: number of independent intertwiners
+  \item $\Delta_{int}$: modular gap of boundary algebra
+\end{itemize}
+
+\section{Budgets and Provenance}
+We recall the definitions of $\kappa$ (geometric suppression constant), $d$ (channel multiplicity), $m$ (conduit count), and $\Delta_{\rm int}$ (interaction depth). These arise from the operator-algebraic entropy framework of \cite{bridge-monotonicity,entropy-rewrites,operator-theory}.
+
+\section{Inversion Formula}
+Given a particle mass proxy $\mu_i$ and sector budgets $(\kappa,d,\Delta_{\rm int})$, the geometric depth is
+\begin{equation}
+  \Delta L_i = \frac{m_i\ln d - \ln(\mu_i\,\Delta_{\rm int})}{\kappa}.
+\end{equation}
+Here $m_i$ is obtained from the spin resource $X_i = \sum_a \ln(2j_a+1)$ via a convex response $m_i = f(X_i)$.
+
+\section{K-Rigidity: Convexity Constraints}
+We formalize ``K-rigidity'' as a set of convexity bounds on distributing index-cost along a mass ladder.
+\begin{definition}[Spin resource and response]
+  Let $X := \sum_a \ln(2j_a+1)$ be the additive spin resource for a step. Assume $m = f(X)$ with $f''(X)\ge 0$.
+\end{definition}
+\begin{theorem}[Jensen bound]
+  For fixed $X_{\rm tot}$, $\sum m_i \ge n f(X_{\rm tot}/n)$.
+\end{theorem}
+\begin{corollary}[Mean depth bound]
+  Averaging the inversion formula and applying Jensen yields a lower bound on the mean depth $\frac{1}{n}\sum \Delta L_i$.
+\end{corollary}
+\begin{theorem}[Adjacent spacing bound]
+  If $f$ is $L$-Lipschitz, $|\Delta L_{i+1}-\Delta L_i|$ is bounded by a function of $|X_{i+1}-X_i|$ and adjacent mass ratios.
+\end{theorem}
+\begin{proposition}[Minimax depth]
+  Equal $X_i$ minimizes $\max \Delta L_i$.
+\end{proposition}
+These bounds restrict allowable oscillations in geometric depth, providing a falsifier if experimental data violates them without invoking nonconvex $f$ or exotic resources.
+
+\section{Sector Fits and Cross-Anchor Protocol}
+We outline a procedure for fitting $(\kappa,d,\Delta_{\rm int})$ across sectors, using known particles as anchors and verifying cross-sector consistency.
+
+\section{Robustness and Falsifiers}
+We list testable predictions: (i) Violations of K-rigidity imply missing states or hidden resources. (ii) Ladder fits with large oscillations in $\Delta L_i$ are disfavored.
+
+\section{Worked Examples}
+Example fit for a lepton ladder: table of $\mu_i$, $m_i$, $\Delta L_i$, plots of depths vs step index, and K-rigidity score.
+
+\section*{References}
+\begin{thebibliography}{99}
+  \bibitem{bridge-monotonicity} M. Sandoz, ``Bridge-Monotonicity in Spin Networks,'' (2025), preprint.
+  \bibitem{entropy-rewrites} M. Sandoz, ``Entropy Monotonicity via Local Graph Rewrites,'' (2025), preprint.
+  \bibitem{operator-theory} M. Sandoz et al., ``Operator-Algebraic Perspective on Entropy Flow,'' (2025), preprint.
+\end{thebibliography}
+
+\end{document}

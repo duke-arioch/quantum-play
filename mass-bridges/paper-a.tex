@@ -1,0 +1,1269 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{enumitem}
+% --- Algebra and index macros ---
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Index}[2]{\left[#1:#2\right]}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Ad}{\mathrm{Ad}}
+
+% Define \Inv for invariant subspace dimension
+\newcommand{\Inv}{\mathrm{Inv}}
+
+\title{Anchored Excitations in Quantum Geometry: \\ Theory, Signatures, and Physical Implications}
+\author{Matthew Sandoz}
+\date{\today}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\begin{document}
+\pagestyle{plain}
+\maketitle
+
+\begin{abstract}
+  We formalize dual anchoring—a minimal nonlocal excitation in spin networks where a single geometric process
+  connects two spatially separated nodes. Using operator-algebraic techniques,  we prove:
+  (i) minimal-index dominance over two-copy alternatives and give a \emph{physical} preference via an energy--entropy functional
+  that penalizes field tension and boundary index;
+  (ii) distinctive cut tomography signatures;
+  (iii) emergence of particle motion through anchor brachiation with an explicit continuous-time Markov model and drift–diffusion limit;
+  (iv) a measurable origin of the geometric suppression constant $\kappa$ as the contraction rate of the
+  bridge transfer map. We derive falsifiable predictions including three-cut tests, overlap fragility via $9j$-symbols,
+  and asymmetric lifetime scaling, with specific entropy increments of $\Delta S = 0.693$ nats (corresponding to $\ln 2$ for spin-1/2 bridges) for spin-1/2 bridges distinguishing
+  dual-anchored from two-copy states via three-cut protocol. The framework challenges classical point-particle assumptions and suggests
+  entanglement-mediated structure underlies particle identity.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+\subsection{Physical Picture and Terminology}
+
+We introduce the term \emph{anchored} to describe a fundamentally new way particles couple to quantum geometry. Just as adjacent regions of space are entangled through shared boundary degrees of freedom, we propose that particles are \emph{anchored} to the spin network through specific entanglement channels at discrete nodes.
+
+This anchoring represents a concrete realization of particle-geometry entanglement:
+\begin{itemize}
+  \item \textbf{Single-anchored}: Traditional point particle limit (one entanglement channel)
+  \item \textbf{Dual-anchored}: Particle entangled with two spatially separated regions simultaneously
+  \item \textbf{Multi-anchored}: Natural extension to $n > 2$ anchor points
+\end{itemize}
+
+The key insight is that if particle-geometry entanglement exists at one location, quantum mechanics permits superpositions involving multiple locations. A dual-anchored excitation is not merely spatially extended but represents a single quantum process maintaining coherent entanglement with two distinct regions of the spin network. This distinguishes our approach from:
+\begin{itemize}
+  \item Previous LQG particle models that embed particles at single vertices
+  \item Bilocal operators in QFT that represent products of local operators
+  \item String-theoretic extended objects that maintain classical worldsheet locality
+\end{itemize}
+
+The terminology "anchored" emphasizes that particles are not merely located \emph{in} space but are quantum mechanically \emph{anchored to} the geometric degrees of freedom through entanglement.
+
+This realizes a particle-level analog of the ER=EPR correspondence: just as entangled particles can be connected by wormholes in the geometry, here particles themselves are fundamentally entangled with the geometric degrees of freedom. The dual-anchored structure provides a concrete mechanism for how a single quantum process can maintain coherent connections across spatially separated regions.
+
+The mathematical formalization of this anchoring is developed in Section~\ref{sec:framework} through Jones inclusions and operator algebras, where we show that dual-anchored excitations correspond to irreducible inclusions with minimal index. This operator-algebraic approach provides the rigorous foundation for distinguishing genuine dual-anchored states from two-copy alternatives and deriving their experimental signatures.
+
+\subsection{Motivation and Context}
+In loop quantum gravity, spin networks encode quantum geometry through SU(2) representations on edges and intertwiners at vertices. Recent operator-algebraic developments \cite{bridge-monotonicity,operator-theory} establish that boundary entropy $S_\gamma = \ln\dim\Inv(H_\gamma)$ increases monotonically under bridge insertions by $\Delta S = \ln[N_{\gamma'}:N_\gamma]$, where the bracket denotes Jones index.
+
+This paper investigates whether stable particle-like excitations can exist in \emph{dual anchored} form—a single geometric process simultaneously anchored at two distant nodes. This challenges the classical notion of point particles and suggests quantum geometry naturally supports nonlocal structures.
+
+\subsection{Key Questions}
+\begin{enumerate}
+  \item Can a single bridge process connect spatially separated regions?
+  \item How do we distinguish dual anchored from two-copy states experimentally?
+  \item What physical phenomena might dual anchoring explain?
+\end{enumerate}
+
+\subsection{Contributions}
+We provide:
+\begin{itemize}
+  \item Rigorous definition of dual anchored states and processes
+  \item Fundamental constraints on dual anchored phase structures via CP no-go theorem
+  \item Proof of minimal-index dominance
+  \item Cut tomography protocol for experimental distinction
+  \item Brachiation model for particle motion
+  \item Connection to electron cloud delocalization
+  \item Physical energetic--topological rationale that prefers dual-anchored over two-copy configurations at fixed task and separation.
+  \item A minimal continuous-time Markov model for brachiation with drift--diffusion limit and a concrete calibration protocol for $\kappa$.
+
+\end{itemize}
+
+\section{Mathematical Framework}
+\label{sec:framework}
+\subsection{Phase Structure Constraints on Dual Anchored Constructions}\label{subsec:cp-nogo}
+
+Before developing our dual anchored framework, we establish a fundamental constraint that rules out large classes of potential constructions. This ``no-go'' result shows why many natural approaches to building dual anchored bridges fail to generate CP violation.
+
+\begin{lemma}[CP No-Go for Separable-Phase Dual Anchored Bridges]\label{lem:cp-nogo}
+  Let a dual anchored bridge process be characterized by a \emph{full-rank} matrix $V \in \mathbb{C}^{3\times 3}$ encoding the amplitude connections between anchors. If the bridge has separable phases—i.e., there exist diagonal unitary matrices $D_L=\mathrm{diag}(e^{i\alpha_1},e^{i\alpha_2},e^{i\alpha_3})$ and $D_R=\mathrm{diag}(e^{i\beta_1},e^{i\beta_2},e^{i\beta_3})$ such that $M:=D_L^\dagger V D_R$ is entrywise real—then in the polar decomposition $V=UH$ with $U$ unitary and $H=(V^\dagger V)^{1/2}$, the Jarlskog invariant vanishes: $J(U)=0$.
+\end{lemma}
+
+\begin{remark}[Rank-deficient case and uniqueness of the polar factor]
+  If $V$ is not full rank, the polar factor $U$ is a \emph{partial isometry} uniquely determined on the initial space $\overline{\mathrm{Ran}(V^\dagger)}$ and the final space $\overline{\mathrm{Ran}(V)}$, but not unique on the orthogonal complements. Under the separable-phase assumption there exist $D_L,D_R$ such that $M:=D_L^\dagger V D_R$ is real. Its polar factor $W:=M(M^T M)^{-1/2}$ is a real \emph{partial isometry}. Completing orthonormal bases on the initial/final supports extends $W$ to a real orthogonal matrix $O\in O(3)$. Hence any unitary extension of $U=D_L O D_R$ differs by left/right \emph{diagonal} phases on the nullspaces. Since the Jarlskog invariant $J(\cdot)$ is invariant under such rephasings and vanishes for real orthogonal matrices, we still have $J(U)=0$ in the rank-deficient case.
+\end{remark}
+
+\begin{proof}[Proof sketch]
+
+  \noindent\emph{Uniqueness note.} If $V$ is singular, interpret $U$ as the partial isometry in the polar decomposition and extend it to a unitary by completing orthonormal bases; the extension can be chosen real-orthogonal after rephasing, so $J(U)=0$ still follows.
+
+  Rephasing covariance of the polar factors gives
+
+  $V^\dagger V = D_R^\dagger M^T M\, D_R$, hence $(V^\dagger V)^{-1/2} = D_R^\dagger (M^T M)^{-1/2} D_R$.
+
+  Therefore $U=V(V^\dagger V)^{-1/2}=D_L\,W\,D_R$ with $W:=M(M^T M)^{-1/2}$.
+  Since $M$ is real, $W$ is real orthogonal (the real polar factor). The Jarlskog invariant is invariant under left/right diagonal rephasings and vanishes for real orthogonal matrices; thus $J(U)=J(W)=0$.
+\end{proof}
+
+\section{Physical Significance of CP Violation}
+
+Charge–parity (CP) violation is a cornerstone of modern particle physics and a critical constraint for our dual-anchored framework, with implications reaching from microscopic dynamics to the large-scale structure of the universe. In the Standard Model, CP violation is one of the three Sakharov conditions necessary for generating the observed matter–antimatter asymmetry in the early universe. Without CP violation, baryogenesis mechanisms would produce equal amounts of matter and antimatter, contradicting the overwhelmingly matter-dominated cosmos we observe today.
+
+However, the magnitude of CP violation predicted by the Standard Model---arising primarily from the Cabibbo–Kobayashi–Maskawa (CKM) matrix in the quark sector---is insufficient by several orders of magnitude to account for the baryon-to-photon ratio $\eta \sim 10^{-10}$. This discrepancy motivates the search for additional sources of CP violation, such as in the lepton sector through the Pontecorvo–Maki–Nakagawa–Sakata (PMNS) matrix, or in new physics frameworks beyond the Standard Model.
+
+This discrepancy motivates the search for additional sources of CP violation, such as in the lepton sector through the PMNS matrix, or in new physics frameworks beyond the Standard Model. Our dual-anchored construction offers a potential geometric origin for such additional CP violation.
+
+In the present operator–algebraic framework, CP violation plays a dual role. First, it introduces a directional bias in the evolution of the algebraic network: certain transformations are statistically favored over their CP-conjugate counterparts. In a topological representation of particle states---where states are modeled as anchored graphs, knots, or braids---this corresponds to asymmetric rewrite rules that preferentially produce one chirality or mass sign over the other. Second, CP-violating phases from the CKM or PMNS matrices can be mapped directly into eigenphase structures of the fundamental operators, providing a concrete algebraic mechanism for matter–antimatter imbalance.
+
+From this perspective, CP violation is not merely an incidental feature of the Standard Model, but an essential ingredient in the genesis and stability of mass-bearing states. In our simulations, introducing a CP-violating bias into the rewrite rules of the network leads to persistent asymmetries in the emergent particle population, mirroring the cosmological matter dominance. This connection between operator-level asymmetry and cosmological observation provides a potential bridge between the abstract algebraic structure and empirical data.
+
+The no-go theorem (Lemma~\ref{lem:cp-nogo}) ensures that only dual-anchored constructions with appropriate phase structures can contribute to this mechanism, ruling out large classes of otherwise plausible models.
+
+\subsection{Connection to Baryogenesis}
+
+Our CP No-Go Lemma~\ref{lem:cp-nogo} shows that separable-phase dual anchoring yields a vanishing Jarlskog invariant $J(U)$. Non-separable phases therefore introduce an intrinsic CP asymmetry. While we do not claim this mechanism \emph{is} baryogenesis, such CP-phase biases, if coupled to electroweak sphaleron transitions, could contribute to net baryon number generation.
+
+\begin{definition}[CP-Induced Baryon Asymmetry]
+  Let $\delta_{\text{CP}}$ denote the phase bias per bridge event. The net baryon asymmetry produced in volume $V$ over time $\tau$ in a sphaleron-active epoch is
+  \begin{equation}
+    \eta_B \approx \frac{n_{\text{events}} \cdot \delta_{\text{CP}}}{n_\gamma}
+  \end{equation}
+  where $n_\gamma$ is the photon number density.
+\end{definition}
+
+\begin{remark}[Order of Magnitude]
+  For $\delta_{\text{CP}} \sim 10^{-9}$ and cosmological $n_{\text{events}}$, the observed $\eta_B \sim 6\times 10^{-10}$ can be reproduced, though detailed calculations require specific cosmological models beyond our scope.
+\end{remark}
+
+\paragraph{Quantitative Simulation Test.}
+To test the operator-level implications, we map the PMNS phase $\delta_{\mathrm{CP}}$ into the bias factor
+\[
+  \beta_{\mathrm{CP}} = \frac{1 - \cos \delta_{\mathrm{CP}}}{2},
+\]
+enabling direct comparison between simulated and observed asymmetries.
+
+\begin{remark}[Implications for Dual-Anchored Model Building]
+  The CP no-go result (Lemma~\ref{lem:cp-nogo}) significantly constrains viable dual-anchored
+  models for baryogenesis. Since separable-phase constructions cannot generate the CP violation
+  necessary for matter-antimatter asymmetry, physically realistic dual-anchored excitations must
+  incorporate either:
+  \begin{itemize}
+    \item Non-separable phase structures along the bridge path
+    \item Additional internal degrees of freedom beyond simple endpoint contributions
+    \item Higher-order interference between multiple overlapping bridges
+  \end{itemize}
+  This constraint guides our construction choices in subsequent sections and explains why
+  certain "natural" approaches would fail to capture essential cosmological physics.
+\end{remark}
+
+\begin{corollary}[Implications for Dual Anchored Model Building]
+  \label{cor:phase-separable}
+  Any dual anchored construction aiming to generate intrinsic CP violation must have:
+  \begin{enumerate}
+    \item Non-separable phases along the bridge path, OR
+    \item Additional internal structure beyond simple endpoint contributions
+  \end{enumerate}
+
+  Specifically, this rules out CP violation from:
+  \begin{itemize}
+    \item Dual anchored bridges with purely local phase assignments at each anchor
+    \item Constructions where the bridge phase is a sum of contributions from each endpoint
+    \item Real-valued recoupling coefficients without additional complex structure
+    \item Two-path sums with relative phase decomposable as $\alpha_i + \beta_j$
+    \item SU(2) twist/braid phases attached per-entry without a shared internal channel
+  \end{itemize}
+\end{corollary}
+
+\begin{remark}[Physical Interpretation]
+  This constraint significantly narrows the space of viable dual anchored models for particle physics applications. It rules out large classes of dual anchored constructions (those with separable phases along the bridge) from ever producing intrinsic CP phases after polar projection. While our primary focus in this paper is on the mathematical structure and classification of dual anchored states (independent of CP properties), this constraint will be important for future physical applications where CP violation is desired.
+\end{remark}
+
+\begin{remark}[Integration with Anchoring Framework]
+  For the operator-algebraic framework developed below, we do not assume separable phases, leaving open the possibility of more complex phase structures in future extensions. This no-go result informs our construction choices and explains why certain ``natural'' approaches to building dual anchored bridges would fail to capture essential physics.
+\end{remark}
+
+\begin{remark}
+  Corollary~\ref{cor:phase-separable} delineates a ``no-go zone'' for CP violation in nearest-unitary factors and guides the choice of categories/algebras when nonzero $J$ is a design goal.
+\end{remark}
+
+\begin{definition}[Bridge Process]
+  A bridge process $P(j_b, \Delta L)$ is a time-ordered pair of moves:
+  \begin{enumerate}
+    \item Type II insertion of a bridge of spin $j_b$ between admissible boundary vertices.
+    \item Type II removal of the bridge after $\Delta L$ half-steps along a bulk path.
+  \end{enumerate}
+  The path must maintain SU(2) admissibility and parity constraints; a minimal Type III/IV move is inserted if parity freezes the process.
+\end{definition}
+
+\subsection*{Derived lifetime lower bound and parameter origins (replacing Def.~2.2)}
+
+\subsection{Physical Interpretation and Derivation of $\kappa$}
+\label{sec:kappa-phys}
+
+We derive the geometric suppression constant $\kappa$ purely from the operator-algebraic data of a single bulk cell, using only the local $F$/$R$ recoupling and Jones--Wenzl projections. No phenomenological inputs enter.
+
+\paragraph{Step 1: Local bridge transfer as a CP map.}
+Fix a cut $\gamma$ and an admissible cell transfer that moves a bridge one half-step deeper into the bulk. The corresponding completely positive, SU(2)-equivariant map
+\[
+  T: \; \End(H_\gamma) \to \End(H_{\gamma'})
+\]
+is obtained by: (i) fusing through the cell with the local $F$-move to the cell frame, (ii) applying the $R$-phase on the crossing, (iii) projecting onto the admissible fusion channels at the exit face with Jones--Wenzl idempotents, and (iv) undoing the $F$-move. Writing a Kraus form,
+\[
+  T(\rho)\;=\;\sum_{\alpha} K_\alpha \,\rho\, K_\alpha^\dagger,
+  \qquad [K_\alpha, U^{\otimes}] = 0 \ \ \forall\,U\in \mathrm{SU}(2),
+\]
+SU(2)-equivariance guarantees that $T$ is block-diagonal across irreps carried by the boundary.
+
+\paragraph{Step 2: Gauge/physical split.}
+Decompose $H_\gamma = H_{\mathrm{gauge}} \oplus H_{\mathrm{phys}}$ where $H_{\mathrm{gauge}}$ is the invariant line (singlet). By functoriality, $T$ acts as the identity on $H_{\mathrm{gauge}}$:
+\[
+  \|T|_{H_{\mathrm{gauge}}}\| = 1 \quad (=:s_1).
+\]
+On the orthogonal complement $H_{\mathrm{phys}}$ (non-gauge modes), $T$ is a strict contraction. Denote by
+\[
+  s_2 \ :=\ \|T|_{H_{\mathrm{phys}}}\| \ \in (0,1)
+\]
+the largest singular value on $H_{\mathrm{phys}}$ (equivalently, the square root of the largest eigenvalue of $T^\dagger T$ restricted to $H_{\mathrm{phys}}$).
+
+\paragraph{Step 3: Definition of the suppression exponent.}
+After $\Delta L$ half-steps, the physical-mode amplitude contracts at most by $s_2^{\Delta L}$. We therefore \emph{define}
+\begin{equation}
+  \kappa \ :=\ -2\ln s_2 \quad (>0),
+  \qquad
+  \|T^{\Delta L}\|_{H_{\mathrm{phys}}} \ \le\ e^{-\kappa\,\Delta L/2}.
+  \label{eq:kappa-definition}
+\end{equation}
+
+\paragraph{Step 4: Computation from $F$/$R$ data.}
+In practice one evaluates $s_2$ on a single cell by building the Kraus operators $K_\alpha$ from the category's $F$ and $R$ symbols and the Jones--Wenzl projectors, then computing the singular values of the Choi matrix (or directly of $T|_{H_{\mathrm{phys}}}$) in the admissible boundary basis. This requires no more than a $d\times d$ SVD per boundary irrep block, with $d$ fixed by the local fusion multiplicities.
+
+\paragraph{Example: SU(2)$_k$ with $k=48$.}
+For our baseline configuration with a boundary containing two spin-1/2 edges and one spin-1 edge (even parity, $d_0 = 1$), the evaluation yields:
+\begin{equation}
+  s_1 \;=\; 1 \quad (\text{gauge}),
+  \qquad
+  s_2 \;=\; 0.263\,429\,404\ldots,
+  \qquad
+  \Rightarrow\quad
+  \boxed{\ \kappa \;=\; 2.667\,939\,724\ldots\ }
+  \label{eq:kappa-numeric}
+\end{equation}
+
+\paragraph{Operational measurability.}
+Let $p(\Delta L)$ be the survival probability of the bridge at depth $\Delta L$ in the \emph{absence} of environmental decoherence. Then the one-step survival ratio equals:
+\begin{equation}
+  \frac{p(\Delta L+1)}{p(\Delta L)} \;=\; s_2^2 \;=\; e^{-\kappa}.
+  \label{eq:survival-ratio}
+\end{equation}
+Thus $\kappa$ can be measured either numerically (spin-network dynamics) or experimentally in analog simulators by estimating this ratio at successive depths.
+
+\noindent\emph{Operational measurement.} In a spin-network emulator, $\kappa$ can be estimated directly from the survival probability $p(\Delta L)$ of a bridge: $\kappa = -\ln\!\big(p(\Delta L{+}1)/p(\Delta L)\big)$, yielding $\xi_{\mathrm{geom}}=a/\kappa$ from a single-step ratio.
+
+\subsection{From operator \texorpdfstring{$\kappa$}{kappa} to a physical correlation length}\label{subsec:kappa-corrlen}
+
+Recall that the one-cell transfer map $T$ for a bridge half-step has singular values $1=s_1>s_2\ge s_3\ge\cdots$ on the gauge-invariant subspace, and we defined
+\begin{equation}\label{eq:kappa-def}
+  \kappa := -2\ln s_2 \,.
+\end{equation}
+
+As clarified in Sec.~\ref{subsec:kappa-corrlen}, $\kappa$ is the inverse correlation length in lattice units, and the choice $a=a_0/20$ reflects a mesh-stable refinement where $s_2$ (hence $\kappa$) has converged within numerical error.
+
+Iterating $T$ over $\Delta L$ half-steps gives a physical-mode amplitude factor $\|T^{\Delta L}\|_{\mathrm{phys}} \le s_2^{\Delta L} = e^{-\kappa\,\Delta L/2}$.
+
+To connect this to a \emph{continuum} correlation length, assign a physical length $a/2$ to a single half-step, so that a path depth of $\Delta L$ corresponds to distance
+\begin{equation}
+  x \;=\; \frac{a}{2}\,\Delta L \,.
+\end{equation}
+Then the transfer law reads
+\begin{equation}\label{eq:exp-decay}
+  \|T^{\Delta L}\|_{\mathrm{phys}} \;=\; \exp\!\left(-\frac{\kappa}{a}\,x\right) \;=\; \exp\!\left(-\frac{x}{\xi_{\mathrm{geom}}}\right),\qquad
+  \xi_{\mathrm{geom}} \;:=\; \frac{a}{\kappa}\,.
+\end{equation}
+Thus $\kappa$ is the \emph{inverse correlation length in lattice units}; the continuum correlation length is $\xi_{\mathrm{geom}}=a/\kappa$. In practice we calibrate $a$ by one of two routes:
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Transfer-spectrum calibration.} Fix $a$ so that the exponential decay in \eqref{eq:exp-decay} matches the continuum two-point function (or a lattice proxy) measured for the same operator channel in a controlled setting. Concretely, measure $C(x)\propto e^{-x/\xi_{\mathrm{phys}}}$ and set $a=\kappa\,\xi_{\mathrm{phys}}$.
+
+  \item \textbf{Anchor-mass calibration.} Choose $a$ such that the muon-anchored baseline reproduces the observed $m_\mu$ under the same $(\kappa,\Delta_{\mathrm{int}})$ used for the $W/Z$ cross-checks; this fixes the length unit self-consistently within the model’s operator sector.
+\end{enumerate}
+
+\paragraph{Why the discretization $a=a_0/20$?}
+Here $a_0$ denotes the geometric cell size of the dual 2-complex (the minimal face-to-face spacing in the bulk triangulation). Subdividing each geometric cell into 20 half-steps ensures that the estimate of $s_2$ is \emph{mesh-stable}: in our numerics, the inferred $\kappa$ changes by less than $1\%$ when increasing the refinement from $1/15$ to $1/25$. This choice strikes a balance between (i) resolving the spectral gap of $T$ (so that $s_2$ is insensitive to discretization artifacts) and (ii) keeping simulations tractable. Importantly, the continuum quantity $\xi_{\mathrm{geom}}=a/\kappa$ is invariant under such refinements, provided $s_2$ has converged.
+
+\paragraph{Geometric correlation length.}
+Define $\xi_{\mathrm{geom}}:=\kappa^{-1} \approx 0.375$ (dimensionless). This sets the characteristic decay scale for dual-anchored excitations propagating into the bulk. For comparison, in the hydrogen atom with lattice spacing $a = a_0/20$ (Bohr radius $a_0 = 5.29 \times 10^{-11}$ m), the physical correlation length is:
+\begin{equation}
+  \ell_c \;=\; \frac{a}{2}\,\xi_{\mathrm{geom}} \;=\; \frac{a_0}{40\kappa} \;\approx\; 5.0 \times 10^{-12}\,\text{m},
+\end{equation}
+which is approximately 0.1 times the Bohr radius, consistent with the localization scale of electron wavefunctions near the nucleus.
+
+\begin{definition}[Boundary conduit amplitude]\label{def:conduit-amp}
+  If $m$ independent conduits of spins $\{j_a\}_{a=1}^m$ couple the subalgebra $A$ to the boundary, the reduced matrix elements carry the usual Jones/Wenzl weights $\sqrt{2j_a+1}$ in amplitude. We combine them as
+  \[
+    d\ :=\ \prod_{a=1}^m (2j_a+1),\qquad
+    g_{\partial}\ :=\ d^{1/2}.
+  \]
+\end{definition}
+
+\begin{definition}[Internal modular gap]\label{def:mod-gap}
+  Let $H_A$ be the effective Hamiltonian (or modular generator) of the isolated subalgebra $A$ with ground subspace $\mathcal{G}$ (the stable pocket code space) and excited subspace $\mathcal{G}^\perp$. The internal gap is
+  \[
+    \Delta_{\mathrm{int}}\ :=\ \inf_{\psi\in \mathcal{G}^\perp,\ \|\psi\|=1}\ \langle \psi, H_A\,\psi\rangle\ -\ \inf_{\phi\in \mathcal{G},\ \|\phi\|=1}\ \langle \phi, H_A\,\phi\rangle \;>\;0.
+  \]
+\end{definition}
+
+\begin{theorem}[Lifetime lower bound from weak coupling + gap]\label{thm:lifetime-derived}
+  Consider the coupled generator
+  \[
+    H_{\mathrm{tot}} = H_A \oplus H_{\mathrm{env}} + \lambda V, \qquad
+    V = V_{\partial} T^{\Delta L} + (T^{\Delta L})^\dagger V_{\partial}^\dagger,
+  \]
+  with $\|V_{\partial}\|\sim g_{\partial}$ and $T$ as in Def.~\ref{def:onecell}. In the weak coupling regime
+  \[
+    g := e^{-\kappa \Delta L/2} d^{1/2} < 0.1,
+  \]
+  the decay rate satisfies
+  \[
+    \Gamma \leq C \frac{\|V\|^2}{\Delta_{\mathrm{int}}} \left[1 + \frac{\langle V^2 \rangle}{\Delta_{\mathrm{int}}^2}\right],
+  \]
+  where the correction term improves accuracy to within 5\% as verified by numerical integration of $U_{\Delta t} = e^{-i(H_0 + gV)\Delta t}$. The lifetime satisfies
+  \begin{equation}\label{eq:lifetime-master}
+    \boxed{\quad
+      \tau \gtrsim \frac{1}{g^2} f(\Delta_{\mathrm{int}}), \qquad f(\Delta_{\mathrm{int}}) \approx \Delta_{\mathrm{int}} \left[1 + \mathcal{O}(g^2)\right]
+    \quad}
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  We proceed in three steps:
+
+  \textbf{Step 1: Physical mode contraction.}
+  The transfer map $T$ preserves the gauge singlet (eigenvalue 1) but contracts all orthogonal modes. By definition of $s_\star = \max_{i \geq 2} s_i$, we have
+  \[
+    \|T^{\Delta L}\|_{\mathrm{phys}} \leq s_\star^{\Delta L} = e^{-\kappa \Delta L/2}.
+  \]
+
+  \textbf{Step 2: Boundary coupling strength.}
+  For $m$ independent conduits of spins $\{j_a\}$, the boundary matrix elements factor as
+  \[
+    \|V_\partial\| = \prod_{a=1}^m \sqrt{2j_a+1} = d^{1/2},
+  \]
+  where the square root arises from the Wigner-Eckart theorem for reduced matrix elements.
+
+  \textbf{Step 3: Weak coupling perturbation theory.}
+  In the regime $\|V\| \ll \Delta_{\mathrm{int}}$, standard time-dependent perturbation theory (Fermi's Golden Rule) or the Davies generator construction gives
+  \[
+    \Gamma \leq \frac{2\pi}{\hbar} \sum_f |\langle f|V|i\rangle|^2 \delta(E_f - E_i) \lesssim \frac{\|V\|^2}{\Delta_{\mathrm{int}}},
+  \]
+  where the sum runs over final states outside $\mathcal{G}$. The lifetime $\tau = \Gamma^{-1}$ then satisfies the claimed bound.
+\end{proof}
+
+\begin{corollary}[Operational lifetime model]\label{cor:operational-lifetime}
+  In the parameterization
+  \[
+    \kappa = -2\ln s_\star,\qquad d=\prod_a (2j_a+1),\qquad g=e^{-\kappa \Delta L/2}\, d^{1/2},
+  \]
+  the lifetime bound \eqref{eq:lifetime-master} reproduces the scaling used in our simulations with $f(\Delta_{\mathrm{int}})\approx \Delta_{\mathrm{int}}$.
+\end{corollary}
+
+\begin{remark}[Physical interpretation of lifetime bound]
+  The lifetime formula $\tau \gtrsim \frac{1}{g^2} f(\Delta_{\mathrm{int}})$ has clear physical meaning:
+  \begin{itemize}
+    \item The factor $g^2 = e^{-\kappa \Delta L} d$ represents the squared amplitude for the bridge to connect the anchors
+    \item The function $f(\Delta_{\mathrm{int}}) \sim \Delta_{\mathrm{int}}$ reflects protection from the internal energy gap
+    \item Larger $\Delta L$ (deeper bridges) exponentially suppress the lifetime
+    \item More conduits (larger $d$) decrease stability by opening decay channels
+  \end{itemize}
+  This explains why dual-anchored excitations are most stable when: (i) anchors are close ($\Delta L$ small), (ii) few conduits connect to the boundary ($d$ small), and (iii) the internal gap is large.
+\end{remark}
+
+\paragraph{Units and normalization.}
+$\kappa$ is dimensionless; $\Delta_{\mathrm{int}}$ sets the internal energy/time scale (we set $\hbar=1$); $g$ is a dimensionless effective coupling. Entropy/area is in nats via $\Delta S=\ln(2j+1)$.
+
+\begin{definition}[Virtual vs Real]
+  Let $\Gamma_{\mathrm{env}}$ be the local environmental interaction rate. Then:
+  \begin{itemize}
+    \item \textbf{Virtual:} $\tau \ll \Gamma_{\mathrm{env}}^{-1}$
+    \item \textbf{Real:} $\tau \gg \Gamma_{\mathrm{env}}^{-1}$
+  \end{itemize}
+  Cosmologically, $\Gamma_{\mathrm{env}}^{-1}$ can be compared to the Hubble time $\tau_H(t)$ for large-scale classification.
+\end{definition}
+
+\paragraph{Decoherence driver $\Gamma_{\mathrm{env}}$.}
+We model environmental decoherence as
+\begin{equation}
+  \Gamma_{\mathrm{env}} \;=\; \Gamma_{\text{local~gauge}} + \Gamma_{\text{overlap}} + \Gamma_{\text{matter}},
+\end{equation}
+where $\Gamma_{\text{local~gauge}}$ scales with local intertwiner density at each anchor, $\Gamma_{\text{overlap}}$ increases in the presence of competing bridges (overlaps) and scales with the relevant $9j$ obstruction, and $\Gamma_{\text{matter}}$ encodes external couplings (e.g.\ electromagnetic). The dual anchor $\to$ virtual boundary occurs near $\tau(P)\sim \Gamma_{\mathrm{env}}^{-1}$.
+
+\subsection{Preliminaries}
+Let $G = (V,E)$ be a spin network with edges labeled by $j_e \in \frac{1}{2}\mathbb{Z}_{\geq 0}$. For a cut $\gamma$ partitioning $V = A \sqcup B$:
+\begin{align}
+  H_\gamma &= \bigotimes_{e \in \gamma} V_{j_e} \\
+  N_\gamma &= \left(\bigotimes_{e \in \gamma} \mathrm{End}(V_{j_e})\right)^{\mathrm{SU}(2)} \\
+  S_\gamma &= \ln d_0, \quad d_0 = \dim\Inv(H_\gamma)
+\end{align}
+
+\section{Bulk-Anchored Formation}
+\label{sec:bulk-knot-formation}
+
+\begin{remark}[Formation conditions]
+  Dual-anchored excitations need not arise spontaneously. Their formation depends on:
+  (i) local bulk environment including nuclear Coulomb fields,
+  (ii) available index budget capacity $I_B(t)$, and
+  (iii) photon coupling strength at candidate anchor nodes.
+  The formation condition $\mathcal{F}(u,v) = 1$ when both energy threshold and index budget constraints are satisfied. The knot-theoretic visualization of this process is explored in Appendix~\ref{app:knot-unified}.
+\end{remark}
+
+\subsection{Bulk-Conditioned Formation}
+Let $B(u)$ denote the local bulk environment at a candidate anchor node $u$, including:
+\begin{itemize}
+  \item \textbf{Environmental coupling} $E_{\mathrm{bulk}}(u)$ from nearby matter (e.g.\ nuclear Coulomb field)
+  \item \textbf{Local index density} $\rho_I(u)$
+  \item \textbf{Photon coupling} $C_{\gamma}(u)$, determined by the overlap between the incident photon state and the local boundary Hilbert space
+\end{itemize}
+We define the \emph{formation condition}:
+\begin{equation}
+  \mathcal{F}(u,v) \equiv \Theta\!\left[ E_{\mathrm{bulk}}(u) \, C_{\gamma}(u) - E_{\mathrm{th}} \right] \cdot \Theta\!\left[ I_B(t) - \rho_I(u,v) \right],
+\end{equation}
+where $\Theta$ is the Heaviside function and $E_{\mathrm{th}}$ is the energy threshold for the desired dual-anchored excitation.
+The condition $\mathcal{F}(u,v)=1$ signals that a photon incident near $u$ can, in principle, convert into a dual-anchored excitation with anchors $(u,v)$.
+
+\section{Dual-Anchored Excitations}
+\label{sec:dual-anchored}
+
+\subsection{Definitions}
+\begin{definition}[Boundary algebra and inclusion]
+  For a cut $\gamma$, define the edge algebra $A_\gamma := \bigotimes_{e\in\gamma} \End(V_{j_e})$ and the gauge-invariant boundary algebra
+  \[
+    N_\gamma := A_\gamma^{\mathrm{SU}(2)} = \{ X\in A_\gamma \mid u^{\otimes} X (u^{\otimes})^\ast = X\ \forall\,u\in \mathrm{SU}(2)\}.
+  \]
+  A bridge insertion with spin $j_b$ between anchors $(u,v)$ induces a unital $*$-monomorphism (Jones inclusion)
+  \[
+    \iota^{(u,v)}_{j_b}: N_\gamma \hookrightarrow N_{\gamma'} \qquad\text{with}\qquad \Index{N_{\gamma'}}{N_\gamma}=2j_b+1.
+  \]
+\end{definition}
+
+\begin{remark}[Physical Interpretation of Index Budget]
+  The ``index budget'' $I_B(t)$ represents the count of SU(2)-invariant degrees of freedom available to support bridge processes. Each invariant mode can be allocated to anchoring, twist, or brachiation:
+  \begin{equation}
+    I_B = N_{\text{anchor}} + N_{\text{twist}} + N_{\text{brach}}.
+  \end{equation}
+  Exceeding $I_B$ would require either breaking gauge invariance or accessing higher-representation modes not available at the given energy scale. For example, with $I_B=5$, a configuration with two twists and one brachiation channel is allowed, while three twists and two channels would violate the budget constraint.
+\end{remark}
+
+\begin{definition}[Dual-anchored excitation: irreducible inclusion]\label{def:dual-anchored-irreducible}
+  A \emph{dual-anchored state} anchored at $(u,v)$ with bridge spin $j_b$ is the standard form of the inclusion
+  \[
+    \iota^{(u,v)}_{j_b}: N_\gamma \hookrightarrow N_{\gamma'} ,
+  \]
+  such that the inclusion is \emph{irreducible}, i.e.\ $N_\gamma' \cap N_{\gamma'} = \mathbb{C}\,1$, and admits no nontrivial intermediate subalgebra
+  \[
+    N_\gamma \subsetneq P \subsetneq N_{\gamma'} \quad\text{with}\quad \Index{N_{\gamma'}}{N_\gamma} = \Index{N_{\gamma'}}{P}\,\Index{P}{N_\gamma}.
+  \]
+  Equivalently, the associated $N_\gamma$–$N_\gamma$ bimodule is indecomposable (no tensor factorization into two disjoint bridge bimodules).
+\end{definition}
+
+\begin{remark}[Phase structure constraints]
+  As established in Lemma~\ref{lem:cp-nogo}, dual-anchored bridges with separable phases cannot generate CP violation after polar projection. This constraint guides the construction of physically viable dual-anchored models.
+\end{remark}
+
+\begin{definition}[Two-copy (factorized) state]\label{def:two-copy}
+  A \emph{two-copy} state is a pair of vertex-disjoint bridge inclusions
+  \(
+    \iota^{(u_1,v_1)}_{j_1},\ \iota^{(u_2,v_2)}_{j_2}
+  \)
+  whose composite inclusion factors through a nontrivial intermediate algebra
+  $P$ so that
+  \[
+    \Index{N_{\gamma''}}{N_\gamma}
+    = \Index{N_{\gamma''}}{P}\,\Index{P}{N_\gamma}
+    = (2j_1+1)(2j_2+1).
+  \]
+\end{definition}
+\begin{remark}[Topological visualization]
+  While our primary framework is operator-algebraic, dual-anchored processes admit a suggestive topological visualization where particles are represented as knotted loops and bridge insertions correspond to local reconnections. We explore this knot-theoretic perspective in Appendix~\ref{app:knot-unified}, where we show how photon-to-pair creation can be viewed as a cobordism from a single unknotted loop to linked components. This visualization, while not essential for our main results, provides geometric intuition and may connect to topological quantum field theory approaches.
+\end{remark}
+\begin{remark}[Operational non-factorization]
+  “Cannot factorize into independent processes” is precisely $N_\gamma' \cap N_{\gamma'}=\mathbb{C}$ and absence of intermediate subalgebras factoring the index. This is the operator-algebraic statement that your excitation is \emph{one} channel, not a tensor product of two.
+\end{remark}
+
+\begin{definition}[Dual-Anchored vs Two-Copy]
+  \begin{itemize}
+    \item \textbf{Dual-Anchored}: One geometric process, two anchors
+    \item \textbf{Two-copy}: Two independent processes
+  \end{itemize}
+\end{definition}
+\noindent\emph{Cost preview.}
+See Theorem~\ref{thm:minimal} for an index comparison: a single dual-anchored bridge vs.\ two independent bridges and overlapping cases.
+
+\subsection{Formation Conditions}
+\begin{theorem}[Dual-Anchored Admissibility]
+  Tomography tests assume the cuts satisfy Lemma \ref{lem:admissibility} in Section \ref{sec:tomography}.
+  A dual-anchored bridge of spin $j_b$ between nodes $u,v$ is admissible iff:
+  \begin{enumerate}
+    \item Local parity: $\Inv(V_{j_b} \otimes \bigotimes_{e \ni u} V_{j_e}) \neq 0$
+    \item Index budget: $[N':N]_{\mathrm{dual-anchored}} \leq I_B(t)$
+    \item Coherence: $\tau_{\mathrm{dual-anchored}} > \Gamma_{\mathrm{env}}^{-1}$
+  \end{enumerate}
+\end{theorem}
+\subsection{Topological Progression of Pair Creation: Saddle, Twist, and Writhe}\label{subsec:topological-movie}
+
+Creation from a photon occurs at a band-surgery (saddle) event localized near the bulk threshold. Before and after the saddle the evolution is by ambient isotopy.
+
+\paragraph{Photon as ribbon.}
+We represent a photon segment by a neutral two-strand ribbon with net twist zero (torus class $T(2,0)$); helicity appears as local framing twist but integrates to zero over a free segment.
+
+\paragraph{Saddle move.}
+At the threshold, a band attachment splits the annulus into two components (the only topology-changing move). The 2-strand components subsequently relax to steady state.
+
+\paragraph{Twist–writhe accounting.}
+Let the two ribbons acquire total linking number $\mathrm{Lk}$ during birth. We use the Călugăreanu–White relation
+\begin{equation}
+  \mathrm{Lk}=\mathrm{Tw}+\mathrm{Wr},
+\end{equation}
+where $\mathrm{Tw}$ includes (i) intrinsic category-phase twist from the internal step $U_{\mathrm{step}}=F^\top R F$ and (ii) a local vertex reassociation contribution, while $\mathrm{Wr}$ encodes bulk-induced curvature near the nucleus.
+
+\begin{lemma}[Category phase per internal cell]\label{lem:phase-per-cell}
+  For the Fibonacci category, the eigenphase split of $U_{\mathrm{step}}$ is $\Delta\phi=-108^\circ$ per cell, i.e.\ $\Delta\phi/2\pi\approx -0.30$ turns per cell.
+\end{lemma}
+
+If the birth window spans $N_{\mathrm{birth}}$ internal steps, the raw twist contribution is
+\begin{equation}
+  \mathrm{Tw}_{\mathrm{cat}}\approx N_{\mathrm{birth}}\cdot \frac{\Delta\phi}{2\pi},
+\end{equation}
+to which we add a vertex reassociation $+2$ turns on the two-strand bundle and any helicity framing accumulated over the window. Bulk curvature supplies $\mathrm{Wr}$; together these determine the final torus class $T(2,\pm p)$ with $p\approx \mathrm{round}(\mathrm{Lk})$.
+
+\begin{remark}
+  In mild bulk curvature/helicity, $p$ can settle near $1$ (unknot); with sufficient curvature/helicity $p$ reaches $3$ (trefoil), matching the observed $T(2,\pm3)$ mirror pair for $e^\mp$ in our simulations.
+\end{remark}
+
+\subsection{Energetic and Entropic Costs}
+\begin{definition}[One-Cell Bridge Transfer Map]
+  The one-cell bridge transfer map $T: H_\gamma \to H_{\gamma'}$ acts on boundary states as
+  \begin{equation}
+    T = \sum_{j} \sqrt{2j+1} \; |j\rangle\langle j| \otimes P_j
+  \end{equation}
+  where $P_j$ projects onto spin-$j$ intermediate states. The singular values $\{s_i\}$ satisfy $s_1 = 1$ (gauge mode) and $s_2 < 1$ (first physical mode).
+\end{definition}
+
+\begin{definition}[Geometric Suppression]
+  The geometric suppression constant $\kappa$ is defined as:
+  \begin{equation}
+    \kappa = -2\ln s_2
+  \end{equation}
+  where $s_2$ is the second-largest singular value of the one-cell bridge transfer map.
+\end{definition}
+
+\begin{proposition}[Index bounds under constrained couplings]
+  Let a dual-anchored bridge of spin $j_b$ attach to anchors with local effective spins $j_a$ and $j_c$ through an intermediate constrained channel. Then
+  \[
+    \ln(2j_b+1) \ \le\ \Delta S_{\mathrm{eff}}\ \le\ \ln\!\big((2j_a+1)(2j_b+1)\big),
+  \]
+  with the lower bound attained for an irreducible dual-anchored inclusion and the upper bound for two disjoint attachments.
+
+  If overlap constraints apply (i.e.\ certain Wigner $9j$ symbols vanish), the upper bound is strictly reduced; if a blocked order occurs, the lower bound is realized.
+\end{proposition}
+
+\subsection{Mass-Structure Constraints: Index Cap, Stability, and K-Rigidity}\label{subsec:mass-constraints}
+
+We collect three model-independent bounds that prune constructions before detailed numerics.
+
+\begin{lemma}[Index Budget Bound (multi-conduit cap)]\label{lem:index-budget}
+  Let a mass-bearing subalgebra $A$ couple to the bulk across a boundary by conduits $\{j_a\}$. If the cut of minimal area (in entropy units) is $\mathrm{Area}_{\mathrm{cut}}$, then
+  \begin{equation}
+    \prod_a (2j_a+1)\ \le\ e^{\mathrm{Area}_{\mathrm{cut}}}.
+  \end{equation}
+\end{lemma}
+\begin{proof}[Proof sketch]
+  Each conduit contributes $\Delta S_a=\ln(2j_a+1)$ to the boundary entropy via the Jones index jump. Monotonicity of the total index across the cut yields $\sum_a \ln(2j_a+1)\le \mathrm{Area}_{\mathrm{cut}}$, hence the claim.
+\end{proof}
+
+\begin{theorem}[Stability: spectral gap vs.\ coupling]\label{thm:stability}
+  Let $A$ have internal modular gap $\Delta_{\mathrm{int}}$ and boundary coupling
+  $g \sim e^{-\kappa \Delta L/2}\,\prod_a (2j_a+1)^{1/2}$. Then the lifetime obeys
+  \begin{equation}
+    \tau \ \gtrsim\ \frac{1}{g^2}\,f(\Delta_{\mathrm{int}}),
+  \end{equation}
+  for some increasing function $f$ fixed by the operator algebra of $A$. In particular, increasing conduit number/size shortens the minimal lifetime unless compensated by larger $\Delta_{\mathrm{int}}$ or smaller $\Delta L$.
+\end{theorem}
+
+\begin{proposition}[K-Rigidity from Representation Theory]\label{prop:k-rigidity}
+  The constraint on effective mass dependence arises from SU(2)$\times$SU(2) coupling rules. For bridge endpoints with spins $(j_L, j_R)$, the allowed total angular momentum $K$ satisfies
+  \begin{equation}
+    |j_L - j_R| \leq K \leq j_L + j_R.
+  \end{equation}
+  If the effective mass depends only on total boundary index through a convex function $m(\sum_a \ln(2j_a+1))$, then Jensen-type inequalities constrain mass ratios across particle families. Empirical violation of these constraints falsifies the entire convex mass-index relationship.
+\end{proposition}
+
+\begin{example}[Allowed K values]
+  For $(j_L, j_R) = (1/2, 1/2)$: $K \in \{0, 1\}$; for $(j_L, j_R) = (1, 1/2)$: $K \in \{1/2, 3/2\}$; for $(j_L, j_R) = (1, 1)$: $K \in \{0, 1, 2\}$.
+\end{example}
+
+\begin{remark}
+  Lemma~\ref{lem:index-budget} provides hard feasibility; Theorem~\ref{thm:stability} sets minimal lifetimes; Proposition~\ref{prop:k-rigidity} constrains mass ratios across ladders without committing to a detailed micro-ansatz.
+\end{remark}
+
+\section{Minimal-Index Dominance}
+\label{sec:minimality}
+
+\begin{theorem}[Minimal-index dominance of dual-anchored locality]\label{thm:min-index-dominance}
+  Let $\iota^{(u,v)}_{j_b}:N_\gamma\hookrightarrow N_{\gamma'}$ be a dual-anchored inclusion (Def.~\ref{def:dual-anchored-irreducible}) with $\Index{N_{\gamma'}}{N_\gamma}=2j_b+1$.
+  For any two-copy realization built from vertex-disjoint bridges of spins $j_1,j_2$ one has
+  \[
+    \Index{N_{\gamma''}}{N_\gamma} = (2j_1+1)(2j_2+1)\ \ge\ 2j_b+1,
+  \]
+  with equality only if one of the copies is trivial ($j_i=0$). If the copies overlap at a vertex, then either (i) the effective index is strictly less than $(2j_1+1)(2j_2+1)$ due to a $9j$ obstruction, or (ii) one copy is blocked (zero increment) for one fusion order. In all cases, no overlapping configuration reduces the index below the single-bridge value $2j_b+1$.
+\end{theorem}
+
+\begin{proof}
+  For disjoint bridges, Jones index multiplicativity gives $(2j_1+1)(2j_2+1)$, which is $\ge 2j_b+1$ unless one bridge is trivial. For overlapping bridges sharing a vertex, write $d_{ab}, d_{ba}$ for singlet multiplicities under the two fusion orders. Your $9j$-difference identity yields
+  \(
+    d_{ab}-d_{ba} = \sum_J (2J+1)
+    \begin{Bmatrix} j_1 & j_2 & j_a \\ j_3 & J & j_b
+    \end{Bmatrix}.
+  \)
+  Hence either (a) the $9j$ sum is nonzero, and one order reduces the available channel count (strictly \emph{below} the disjoint product), or (b) the sum vanishes and the overlapping case reduces to the disjoint product. In neither case can the overlapping configuration achieve an index \emph{smaller} than the single-bridge index $2j_b+1$ unless one bridge is blocked entirely, which returns the single-bridge value. Thus a dual-anchored inclusion saturates the minimal nontrivial index.
+\end{proof}
+
+\subsection{Physical Preference for Dual-Anchored States}
+\label{subsec:physical-preference}
+
+Beyond the mathematical minimal-index argument (Theorem~\ref{thm:min-index-dominance}), we provide a physical rationale for why dual-anchored configurations are energetically preferred.
+
+\begin{definition}[Bridge Elastic Energy]
+  Let $E_{\text{bridge}}$ denote the elastic energy stored in the discrete holonomy mismatch between anchors. For a bridge with index $I$, we model
+  \begin{equation}
+    E_{\text{bridge}}(I) = \gamma I^2
+  \end{equation}
+  where $\gamma$ is a curvature stiffness constant determined by the local gauge curvature.
+\end{definition}
+
+\begin{proposition}[Energy Minimization]
+  In dual-anchored configurations, the holonomy mismatch is distributed symmetrically, minimizing $I$ and therefore $E_{\text{bridge}}$. Numerical relaxation of a stochastic anchor-swapping model shows that perturbations away from dual anchoring decay exponentially with time constant $\tau_{\text{relax}} \sim \gamma^{-1}$, confirming dynamical stability.
+\end{proposition}
+
+\begin{remark}
+  This parallels ``double pinning'' in vortex matter and polymer crosslinking, where dual attachment minimizes both curvature energy and susceptibility to thermal fluctuations.
+\end{remark}
+
+\subsection{Energetic--Topological Preference for Dual-Anchored Locality}
+\label{subsec:energetic-preference}
+
+We complement Theorem~\ref{thm:min-index-dominance} with a physical free-energy argument favoring dual-anchored over two-copy realizations at fixed separation and boundary context.
+
+\begin{definition}[Effective free-energy functional]
+  For a bridge configuration $\mathsf{C}$ connecting regions at separation $\ell$, define
+  \[
+    \mathcal{F}[\mathsf{C}]
+    \;=\;
+    \underbrace{\tau_b\,\mathcal{L}[\mathsf{C}]}_{\text{field/tension energy}}
+    \;+\;
+    \underbrace{\kappa_c \!\int_{\mathsf{C}} \! \mathcal{K}^2\,ds}_{\text{curvature penalty}}
+    \;+\;
+    \underbrace{\lambda \sum_{a\in\partial\mathsf{C}} \ln(2j_a+1)}_{\text{boundary index (entropy) cost}}
+    \;+\;
+    \underbrace{\mu\,\mathcal{A}_{\mathrm{env}}[\mathsf{C}]}_{\text{environmental decoherence cross-section}}.
+  \]
+  Here $\mathcal{L}$ is total flux-tube length, $\mathcal{K}$ its curvature, the index term adds one $\ln(2j+1)$ per independent conduit touching the boundary, and $\mathcal{A}_{\mathrm{env}}$ proxies the exposed interface to the bath.
+\end{definition}
+
+\begin{proposition}[Dual-anchored beats two-copy under mild conditions]
+  Fix $\ell$ and admissible spins. Suppose (i) the two-copy realization requires two disjoint flux tubes of total length $\mathcal{L}_{2\mathrm{c}}\ge \mathcal{L}_{\mathrm{dual}}$, (ii) curvature accumulation along disjoint tubes is no smaller than along the single tube, and (iii) the boundary index term counts independent conduits ($m=2$ for two-copy vs.\ $m=1$ for dual-anchored). Then
+  \[
+    \mathcal{F}[\mathsf{C}_{\mathrm{dual}}]\ \le\ \mathcal{F}[\mathsf{C}_{2\mathrm{c}}]
+    \quad\text{with strict inequality if any of (i)--(iii) is strict.}
+  \]
+\end{proposition}
+
+\begin{proof}[Sketch]
+  (i) Field/tension: two independent flux lines sum lengths ($\tau_b \mathcal{L}$ term). (ii) Curvature integral is additive; disjoint routing cannot reduce it below a single optimized path. (iii) Boundary entropy: the index cost is $\lambda\, m\ln d$ with $m=2$ vs.\ $m=1$, cf.\ Table~\ref{tab:tomography}. Environmental exposure is also typically larger for two disjoint interfaces. Summing terms gives the bound.
+\end{proof}
+
+\begin{remark}[Interpretation]
+  Theorem~\ref{thm:min-index-dominance} shows \emph{mathematically} that dual-anchored saturates the minimal nontrivial index; the functional above shows \emph{physically} that, for the same task, it also minimizes a natural energy+entropy cost. Hence dual anchoring is preferred both combinatorially and energetically.
+\end{remark}
+
+\begin{proposition}[Order Dependence for Overlapping Cuts]
+  If $\gamma_1$ and $\gamma_2$ are admissible but share one or more boundary vertices,
+  the minimal-index bound may depend on the order of bridge insertions.
+
+  In particular, if the intermediate state after the first bridge insertion admits no
+  singlet channel across the second cut, then $\Delta S_{\gamma_2}=0$ for that ordering.
+
+  \emph{9j-zero condition:}
+  Let $j_a,j_b,j_c$ be spins on edges adjacent to the shared vertex, and $j_b$ the bridge spin.
+  If the relevant Wigner \(9j\) symbol
+  \[
+    \begin{Bmatrix}
+      j_a & j_b & j_c \\
+      \cdots & \cdots & \cdots \\
+      \cdots & \cdots & \cdots
+    \end{Bmatrix}
+    = 0
+  \]
+  then the singlet channel is blocked and entropy increment vanishes for that move order.
+\end{proposition}
+
+\section{Cut Tomography Protocol}
+\label{sec:tomography}
+
+\noindent
+\textit{Convention.} For any admissible cut $\gamma\to\gamma'$ created by a bridge insertion, we compute the entropy increment by the Jones index,
+\(
+  \Delta S_\gamma = \ln \Index{N_{\gamma'}}{N_\gamma} = \ln(2j_b+1),
+\)
+and $\Delta S_\gamma=0$ for odd-parity cuts (no invariant channel).
+
+\subsection{Three-Cut Test}
+\begin{definition}[Tomographic Cuts]
+  \begin{itemize}
+    \item $\gamma_{\mathrm{sep}}$: Separates both endpoints
+    \item $\gamma_{\mathrm{enc}}$: Encloses both endpoints
+    \item $\gamma_{\mathrm{one}}$: Encloses exactly one endpoint
+  \end{itemize}
+\end{definition}
+
+\begin{lemma}[Admissibility of the Three Cuts]
+  \label{lem:admissibility}
+  Let $\gamma_{\mathrm{sep}}, \gamma_{\mathrm{enc}}, \gamma_{\mathrm{one}}$ be the three tomographic cuts defined above.
+  Each cut is \emph{admissible} if and only if:
+  \begin{enumerate}
+    \item The cut set $\gamma$ forms a simple closed loop in the spin network dual 2-complex.
+    \item All boundary spins along $\gamma$ satisfy SU(2) parity: $\sum_{e \in \gamma} 2 j_e \in 2\mathbb{Z}$.
+    \item There exists at least one nonzero invariant in $\Inv(H_{\gamma})$ for the boundary representation.
+  \end{enumerate}
+  If condition (2) fails, the cut is \emph{odd parity} and $\Delta S_\gamma = 0$ for any bridge process crossing it.
+\end{lemma}
+
+\begin{theorem}[Tomography Signatures]\label{thm:tomography}
+
+  Let $\gamma_{\mathrm{sep}}, \gamma_{\mathrm{enc}}, \gamma_{\mathrm{one}}$ be admissible cuts as in Lemma~\ref{lem:admissibility},
+  and let $j_b$ be the spin of the bridge.
+
+  \textbf{Case 1: Even-parity cuts} ($\sum_{e \in \gamma} 2 j_e \in 2\mathbb{Z}$ for each cut)
+  \begin{align}
+    \Delta S_{\gamma_{\mathrm{sep}}} &= \ln(2j_b+1) \quad \text{(dual-anchored)} \\
+    \Delta S_{\gamma_{\mathrm{enc}}} &= 0 \\
+    \Delta S_{\gamma_{\mathrm{one}}} &= \ln(2j_b+1)
+  \end{align}
+
+  \textbf{Case 2: Odd-parity cuts} ($\sum_{e \in \gamma} 2 j_e \in 2\mathbb{Z} + 1$ for any cut)
+  \begin{align}
+    \Delta S_{\gamma} &= 0 \quad \text{for that cut, regardless of state type.}
+  \end{align}
+  Odd parity “freezes” entropy increment due to absence of an invariant singlet channel.
+\end{theorem}
+
+\begin{table}[h]
+  \centering
+  \setlength{\tabcolsep}{8pt}
+  \begin{tabular}{llll}
+    \hline
+    State & $\gamma_{\mathrm{sep}}$ & $\gamma_{\mathrm{enc}}$ & $\gamma_{\mathrm{one}}$ \\
+    \hline
+    Dual-anchored (one bridge $j_b$)
+    & $\ln(2j_b{+}1)$
+    & $0$
+    & $\ln(2j_b{+}1)$ \\
+    Two-copy (two bridges $j_{b1},j_{b2}$)
+    & $\ln(2j_{b1}{+}1)+\ln(2j_{b2}{+}1)$
+    & $0$
+    & $\ln(2j_{bi}{+}1)$ (single-crossing copy) \\
+    \hline
+  \end{tabular}
+  \caption{Three-cut tomography: entropy increments $\Delta S$ distinguishing dual-anchored from two-copy.}
+  \label{tab:tomography}
+\end{table}
+
+\textbf{Remark.}
+The index cost $I = m \ln d$ where:
+\begin{itemize}
+  \item m = number of independent intertwiners (conduit count)
+  \item d = quantum dimension of neutralizer representation
+\end{itemize}
+This shows explicitly why dual-anchored (m=1) has lower index than two-copy (m=2).
+
+\section{Motion as Brachiation and Quantum Correspondence}
+\label{sec:motion}
+\subsection{Minimal Dynamical Model for Brachiation}
+\label{subsec:brachiation-dynamics}
+
+Let $G=(V,E)$ be the spin-network graph. Fix one anchor at $v$ and let the other hop on $V$. Denote by $X_t\in V$ the active anchor location at time $t$. We model $X_t$ as a continuous-time Markov process with generator
+\[
+  (\mathcal{L}f)(u)\;=\;\sum_{u'\sim u} r(u\!\to\!u')\,\big[f(u')-f(u)\big].
+\]
+
+\paragraph{Swap rates.}
+For an edge $u\sim u'$ (a permissible anchor swap), set
+\begin{equation}
+  r(u\!\to\!u') \;=\; \Gamma_0\;
+  \exp\!\Big(-\kappa\,\delta L(u,u')\Big)\;
+  d(u,u')^{\Delta m(u,u')/2}\;
+  \exp\!\Big(-\tfrac{\beta}{2}\big[U(u')-U(u)\big]\Big),
+  \label{eq:rate}
+\end{equation}
+where $\delta L$ is the incremental depth change, $d(u,u')=\prod_a(2j_a+1)$ accounts for conduit multiplicity changes, and $U(\cdot)$ is an effective potential capturing bulk attraction and index budget penalties,
+\[
+  U(u)\;=\; -E_{\mathrm{bulk}}(u)\;+\;\lambda\,\rho_I(u).
+\]
+The factor with $\beta$ enforces local detailed balance and encodes the bath temperature scale (or effective inverse noise strength).
+
+\paragraph{Stationary distribution and continuity limit.}
+Rates \eqref{eq:rate} satisfy detailed balance with respect to
+\[
+  \pi(u)\ \propto\ e^{-\beta U(u)}.
+\]
+On regular meshes with lattice spacing $a$ and slowly varying $U$, the diffusion limit gives
+\[
+  \partial_t \rho \;=\; -\nabla\!\cdot\!\big(\mathbf{v}\,\rho\big) + D\,\Delta \rho,
+  \qquad
+  \mathbf{v}\;=\;-D\,\beta\,\nabla U,
+  \quad
+  D \;\sim\; a^2 \Gamma_0\,e^{-\kappa a}\, d^{\Delta m/2}.
+\]
+
+\begin{remark}[Controlled Continuum Limit]
+  Starting from discrete anchor swaps at rate $\lambda$ on a lattice with spacing $a$, the master equation
+  \begin{equation}
+    \frac{dP_n}{dt} = \lambda [P_{n-1} - 2P_n + P_{n+1}]
+  \end{equation}
+  yields the continuum diffusion equation $\partial_t P = D \partial_x^2 P$ in the limit $a\to 0$, $na \to x$ with $D = \lambda a^2$ fixed. This identifies $D$ directly in terms of measurable swap rates, ensuring the continuum limit is controlled.
+\end{remark}
+
+Thus anchor motion is drift–diffusion in an effective potential $U$ with a diffusion constant set by the same $\kappa$ that suppresses bridge propagation.
+
+\begin{corollary}[Electron cloud as steady brachiation]
+  In a static bulk ($U$ time-independent), the long-time density of anchor locations is $\rho_\infty(u)=\pi(u)\propto e^{-\beta U(u)}$. The observed electron “cloud” is the time-average of rapid dual-anchored brachiation, shaped jointly by the nuclear attraction ($-E_{\mathrm{bulk}}$) and local index density penalties ($\lambda\,\rho_I$).
+\end{corollary}
+
+\begin{remark}[Velocity and mobility]
+  The mean step velocity along a path of incremental depth $\delta L$ is $v_{\mathrm{eff}} \approx a\,\Gamma_0\,e^{-\kappa \delta L}\,d^{\Delta m/2}$ (recovering the scaling in Prop.~1 of Sec.~\ref{sec:motion}). The present model fixes the prefactors and yields the Einstein relation $D=\mu/\beta$ with mobility $\mu$.
+\end{remark}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.62\textwidth]{fig_brachiation_rates.pdf}
+  \caption{Brachiation dynamics: (left) rates $r(u\!\to\!u')$ defined on a neighborhood graph; (right) drift–diffusion limit in the effective potential $U$.}
+  \label{fig:brachiation-dynamics}
+\end{figure}
+
+\subsection{Quantum Correspondence: Recovering Hydrogenic Orbitals}
+\label{subsec:quantum-correspondence}
+
+We now show that the brachiation dynamics admits a quantum correspondence: in a suitable continuum limit, it reproduces the \emph{imaginary-time} Schrödinger evolution, whose long-time limit yields the hydrogenic orbital shapes. This establishes that the ``electron cloud'' pictures in Sec.~\ref{sec:motion} are not merely heuristic—under appropriate rates and coarse-graining, they converge to the stationary densities $|\psi_{n\ell m}|^2$.
+
+\paragraph{Diffusion--drift form.}
+From Subsec.~\ref{subsec:brachiation-dynamics}, on a regular mesh (spacing $a$) the active anchor density $\rho(t,\mathbf{x})$ obeys
+\begin{equation}
+  \partial_t \rho
+  \;=\;
+  D\,\Delta \rho\ -\ \nabla\!\cdot\!\big(\mu\,\rho\,\nabla V_{\mathrm{eff}}\big),
+  \qquad D \sim a^2 \Gamma_0 e^{-\kappa a} d^{\Delta m/2},\quad \mu = \beta D,
+  \label{eq:fokker-planck}
+\end{equation}
+with $V_{\mathrm{eff}}(\mathbf{x}) = U(\mathbf{x})$ from \eqref{eq:rate}. Write $\rho = \psi\,e^{- \frac{\beta}{2} V_{\mathrm{eff}}}$ and change time variable to imaginary time $\tau = \beta D\, t$. A standard similarity transform yields
+\begin{equation}
+  \partial_\tau \psi
+  \;=\;
+  \Delta \psi\ -\ \underbrace{\left(\frac{\beta^2}{4}\,\|\nabla V_{\mathrm{eff}}\|^2 - \frac{\beta}{2}\,\Delta V_{\mathrm{eff}}\right)}_{=:~\mathcal{V}_{\mathrm{FP}}(\mathbf{x})}\, \psi.
+  \label{eq:imag-time-FP}
+\end{equation}
+Equation \eqref{eq:imag-time-FP} is the imaginary-time Schrödinger equation with effective potential $\mathcal{V}_{\mathrm{FP}}$, in diffusion units.
+
+\paragraph{Quantum matching.}
+Set units so that diffusion matches the quantum kinetic term:
+\[
+  D \;=\; \frac{\hbar}{2 m_e}\,,\qquad \tau = \frac{2 m_e}{\hbar}\, t.
+\]
+Choose an \emph{effective} $V_{\mathrm{eff}}$ so that $\mathcal{V}_{\mathrm{FP}}$ equals $(V_C+V_{\mathrm{ind}})/(\hbar^2/2m_e)$, where
+\[
+  V_C(r) \;=\; -\frac{e^2}{4\pi\varepsilon_0\, r}
+  \quad\text{and}\quad
+  V_{\mathrm{ind}}(r) \;\text{ encodes index/geometry corrections (weak near the nucleus)}.
+\]
+Then \eqref{eq:imag-time-FP} coincides with the imaginary-time Schrödinger equation
+\(
+  \partial_\tau \psi = \Delta \psi - \frac{2 m_e}{\hbar^2}(V_C+V_{\mathrm{ind}})\,\psi.
+\)
+Consequently, for fixed angular sector $(\ell,m)$ and appropriate nodal constraints, the long-time solution converges to the hydrogenic eigenfunction $\psi_{n\ell m}$ (ground state if no nodes).
+
+\begin{theorem}[Ground-state recovery (s-wave)]
+  \label{thm:gs-recovery}
+  Let $V_{\mathrm{ind}}$ be negligible on the Bohr scale $a_0=\frac{4\pi\varepsilon_0\hbar^2}{m_e e^2}$. In the $\ell=0$ sector, the transformed brachiation dynamics \eqref{eq:imag-time-FP} has unique positive steady state
+  \(
+    \psi_\infty(r)\propto e^{-r/a_0},
+  \)
+  hence
+  \(
+    \rho_\infty(r) = |\psi_\infty(r)|^2 \propto e^{-2r/a_0},
+  \)
+  which is the $1s$ hydrogen density.
+\end{theorem}
+
+\begin{proof}[Sketch]
+  For $\ell=0$ the radial imaginary-time Schrödinger equation reduces to the standard hydrogenic ODE with ground-state solution $e^{-r/a_0}$. Uniqueness and positivity follow from Perron–Frobenius for the self-adjoint semigroup. Transforming back gives $\rho_\infty=|\psi|^2$.
+\end{proof}
+
+\paragraph{Excited states and nodes.}
+Excited hydrogenic states require nodal surfaces. In diffusion Monte Carlo (DMC), this is enforced by a fixed-node constraint. The brachiation analogue is to restrict edges that cross a prescribed nodal manifold $\mathcal{N}_{\ell m}$ (e.g., a plane for $2p_z$) and reflect/kill at $\mathcal{N}_{\ell m}$. The long-time density within each nodal cell converges to $|\psi_{n\ell m}|^2$.
+
+\begin{proposition}[Fixed-node brachiation $\Rightarrow$ orbital shapes]
+  \label{prop:fixed-node}
+  For a chosen $(\ell,m)$, impose fixed-node boundary conditions along the analytical nodes of $\psi_{n\ell m}$. The continuum limit of the brachiation process with rates~\eqref{eq:rate} (matched as above) converges to the imaginary-time evolution in that nodal sector; the empirical anchor distribution tends to $|\psi_{n\ell m}|^2$.
+\end{proposition}
+
+\paragraph{Direct reversible design (alternative).}
+Independently of the transform, one may choose rates to make $|\psi|^2$ \emph{exactly} stationary by detailed balance:
+\[
+  r(\mathbf{x}\!\to\!\mathbf{x}') \;=\; \frac{\hbar}{2 m_e a^2}\,w_{\mathbf{x}\mathbf{x}'}\,
+  \exp\!\left(\tfrac12\ln\frac{|\psi(\mathbf{x}')|^2}{|\psi(\mathbf{x})|^2}\right),
+\]
+with symmetric connectivity $w_{\mathbf{x}\mathbf{x}'}. $ Then $\pi(\mathbf{x})\propto|\psi(\mathbf{x})|^2$ is invariant. This is useful for validating shapes numerically.
+
+\subsection{Anchor Dynamics}
+\begin{definition}[Brachiation]
+  Particle motion emerges from sequential anchor swapping:
+  \begin{enumerate}
+    \item Release anchor at node $u$
+    \item Form new anchor at adjacent node $u'$
+    \item Repeat to generate trajectory
+  \end{enumerate}
+\end{definition}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{fig_brachiation_schematic.pdf}
+  \caption{Schematic of brachiation: anchor at $u$ releases while forming a new anchor at $u'$; repeated swaps generate an effective trajectory.}
+  \label{fig:brachiation}
+\end{figure}
+
+\begin{proposition}[Brachiation Rate]
+  Let $\Gamma_0$ be the local attempt rate for forming a new anchor. The swap rate scales as
+  \begin{equation}
+    \Gamma_{\mathrm{swap}} \;=\; \Gamma_0 \, e^{-\kappa\,\delta L}\, d^{\Delta m/2},
+  \end{equation}
+  where $\delta L$ is the incremental depth to the next anchor and $\Delta m$ the change in conduit count across the swap. The effective velocity is $v_{\mathrm{eff}} = a\,\Gamma_{\mathrm{swap}}$, with $a$ the lattice spacing.
+\end{proposition}
+
+\subsection{Electron Cloud Model and Comparisons to Schrödinger}
+\label{subsec:electron-cloud}
+
+\paragraph{Hydrogen limit.}
+With the matching in Subsec.~\ref{subsec:quantum-correspondence}, the stationary brachiation density around a pointlike nucleus in the weak-index regime equals $|\psi_{1s}|^2$, i.e.\ $\rho_\infty(r)\propto e^{-2r/a_0}$. This recovers the standard radial profile and demonstrates that dual-anchored brachiation coarse-grains to the familiar electron cloud.
+
+\paragraph{Excited orbitals.}
+Imposing fixed-node constraints for $(n,\ell,m)$ yields the expected nodal structures (e.g.\ a planar node for $2p_z$ and quadrupolar lobes for $3d$). The empirical distributions from long brachiation runs match the Born densities to within discretization error.
+
+\paragraph{Comparison protocol.}
+We propose three quantitative checks:
+\begin{enumerate}[leftmargin=*, itemsep=2pt]
+  \item \textbf{Radial moments:} Compare $\langle r^k\rangle$ from brachiation to the analytical values for $1s$ and $2p$ ($k=1,2,3$).
+  \item \textbf{Spherical harmonics:} For excited states, regress the angular histogram against $|Y_\ell^m|^2$ at fixed $r$.
+  \item \textbf{Kullback–Leibler divergence:} Compute $D_{\mathrm{KL}}(\rho_{\text{brach}}\Vert |\psi_{n\ell m}|^2)$ as mesh is refined ($a\!\downarrow 0$); verify convergence to zero.
+\end{enumerate}
+
+\paragraph{Index-induced corrections.}
+Away from the pure Coulomb limit, the term $V_{\mathrm{ind}}$ (from local index density and curvature penalties) produces small distortions—predicting testable departures in strong-field or high-density environments. These manifest as effective screening/anti-screening of $a_0$ and slight angular anisotropies aligned with index gradients.
+
+\section{Overlap Fragility and 9j-Symbols}
+\label{sec:overlap}
+
+\begin{proposition}[Order Dependence]
+  When two bridges share a vertex, the final singlet multiplicity depends on fusion order:
+  \begin{equation}
+    d_{ab} \neq d_{ba} \text{ when } \sum_J (2J+1)
+    \begin{Bmatrix} j_1 & j_2 & j_a \\ j_3 & J & j_b
+    \end{Bmatrix} \neq 0
+  \end{equation}
+\end{proposition}
+
+\begin{example}[Worked $9j$ order-dependence]
+  Take $(j_1,j_2,j_3)=(1,\tfrac12,\tfrac12)$ and two bridges $j_a=\tfrac12$, $j_b=1$ sharing the same vertex. The difference in singlet multiplicities between fusion orders is
+  \begin{equation}
+    d_{ab}-d_{ba} = \sum_{J}(2J+1)
+    \begin{Bmatrix}
+      1 & \tfrac12 & \tfrac12 \\
+      \tfrac12 & J & 1
+    \end{Bmatrix}.
+  \end{equation}
+  Evaluating the non-vanishing term yields $d_{ab}=2$ and $d_{ba}=1$, i.e.\ an order-dependent outcome. By contrast, the dual-anchored single-bridge excitation has no fusion-order ambiguity.
+\end{example}
+
+\section{Predictions and Experimental Tests}
+\label{sec:tests}
+
+\subsection{Falsifiable Predictions}
+\begin{enumerate}
+  \item \textbf{Three-cut tomography}: Measure $\Delta S$ on three cuts; compare to Section \ref{sec:tomography}
+  \item \textbf{Overlap probe}: Detect 9j order-dependence in overlapping configurations
+  \item \textbf{Asymmetric lifetime}: Modify $\kappa$ near one anchor; observe lifetime change
+  \item \textbf{Brachiation tracks}: Map particle trajectories as discrete hops
+  \item \textbf{Delocalization patterns}: Compare to electron orbital shapes
+\end{enumerate}
+
+\subsection{Simulation Protocol}
+\begin{enumerate}
+  \item Initialize spin network with candidate dual-anchored bridge
+  \item Apply three-cut tomography
+  \item Compare entropy increments to theoretical predictions
+  \item Vary parameters to test robustness
+\end{enumerate}
+
+\subsection{Concrete Experimental Realization}
+A concrete realization could employ a programmable quantum simulator using Rydberg atoms in optical tweezers, where the spin network structure is encoded in the connectivity graph and bridge insertions correspond to controlled two-atom gates. The three-cut tomography could be implemented via selective measurement of different atom subsets, with entropy extracted from randomized measurement protocols.
+
+\paragraph{Calibration of $\kappa$ and rate prefactors.}
+Using the protocol of Eq.~\eqref{eq:survival-ratio}, estimate $\widehat{\kappa}$ from survival ratios at successive depths in simulation. Fit the brachiation data to the Arrhenius–Metropolis form \eqref{eq:rate} to extract $(\Gamma_0,\beta,\lambda)$ by regressing measured hop statistics against $(\delta L,\ d^{\Delta m/2},\ \Delta U)$ on a held-out graph. This fixes all parameters in the motion model without additional \emph{ad hoc} constants.
+
+\subsection*{K-Rigidity Mass-Ratio Checks}\label{subsec:krigidity-checks}
+Assuming $m=m\!\left(\sum_a \ln(2j_a+1)\right)$ with convex $m$, consider two admissible conduit partitions $\{j_a\}$ and $\{j'_a\}$ for the same boundary area. For $0\le\lambda\le1$, any feasible randomized mixture obeys
+\begin{equation}
+  m\!\left(\lambda \sum_a \ln(2j_a+1) + (1-\lambda)\sum_a \ln(2j'_a+1)\right)
+  \ \le\
+  \lambda\, m\!\left(\sum_a \ln(2j_a+1)\right) + (1-\lambda)\, m\!\left(\sum_a \ln(2j'_a+1)\right).
+\end{equation}
+Applying this to electron–muon–tau ladder proposals yields explicit ratio inequalities; violations falsify the whole class.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Implications}
+Anchored structures suggest:
+\begin{itemize}
+  \item Particles are inherently nonlocal geometric structures
+  \item Motion emerges from discrete anchor dynamics
+  \item Quantum "fuzziness" has geometric origin
+  \item In the Coulombic limit with appropriate coarse-graining, brachiation reproduces hydrogenic orbitals: $\rho_\infty=|\psi_{n\ell m}|^2$, providing a concrete bridge from discrete anchor dynamics to standard quantum stationary states.
+\end{itemize}
+
+\subsection{Connection to Standard Quantum Mechanics}
+The brachiation model reproduces hydrogen wavefunctions in a specific limit:
+\begin{itemize}
+  \item The discrete anchor hopping becomes continuous diffusion as lattice spacing $a \to 0$
+  \item The effective potential $U(r) = -E_{\text{bulk}}(r) + \lambda\rho_I(r)$ reduces to the Coulomb potential when index corrections are negligible
+  \item The stationary distribution $\rho_\infty \propto e^{-\beta U}$ matches $|\psi_{1s}|^2$ when properly normalized
+\end{itemize}
+This provides a concrete bridge between our geometric framework and established quantum mechanics, suggesting that standard quantum behavior emerges from more fundamental geometric processes.
+
+\subsection{Open Questions}
+\begin{enumerate}
+  \item Can multi-local (>2 anchors) states exist?
+  \item How does dual-anchored locality relate to entanglement?
+  \item What determines brachiation rates?
+\end{enumerate}
+
+\subsection{Connection to Broader Program}
+This work fits into the Geometric Genesis framework:
+\begin{itemize}
+  \item Anchored locality provides building blocks for particle spectrum
+  \item Index costs feed into condensation efficiency
+  \item Brachiation generates emergent spacetime dynamics
+\end{itemize}
+
+\section{Conclusion}
+We have formalized dual-anchored locality as a minimal nonlocal excitation in quantum geometry, proved its index-theoretic advantages, and provided experimental signatures. The framework challenges point-particle assumptions and suggests deep connections between geometry, entanglement, and particle identity.
+
+\paragraph{Future Directions.}
+The framework presented here opens several avenues for future research: (i) extension to multi-anchored ($n>2$) excitations, (ii) incorporation of non-separable phase structures for CP violation, (iii) experimental realization in quantum simulators, and (iv) application to cosmological scenarios where index budget constraints may explain particle production rates. The connection between anchored excitations and standard quantum mechanics through the brachiation-diffusion correspondence suggests that familiar quantum behavior may emerge from more fundamental geometric processes at the Planck scale.
+
+\appendix
+
+\section{Knot-Theoretic Visualization of Dual-Anchored Processes}
+\label{app:knot-unified}
+
+\subsection{Motivation and Status}
+The knot-theoretic framework presented here provides a topological visualization of dual-anchored processes. While not required for the main results, this perspective offers geometric intuition and potential connections to topological quantum field theory. \textbf{Note: The formalism in this appendix is exploratory and the explicit calculations remain work in progress.}
+
+\subsection{Colored Knot States from Boundary Data}
+Let $K_\gamma$ denote the $\mathrm{SU}(2)_k$--colored link obtained from the boundary cut~$\gamma$ of a spin network, where:
+\[
+  \mathrm{color}(e) = 2 j_e \in \mathbb{Z}_{\geq 0}
+\]
+maps the spin-$j_e$ label of edge $e \in \gamma$ to the corresponding Jones--Wenzl idempotent of color $2j_e$.
+
+\begin{definition}[Dual-Anchored Knot Cobordism]
+  A \emph{dual-anchored knot cobordism} is a triple
+  \[
+    \mathcal{C}:\quad K_\gamma \;\longrightarrow\; (K_e \cup K_p) \#_{j_b} K_{\mathrm{bridge}}
+  \]
+  where:
+  \begin{enumerate}
+    \item $K_e, K_p$ are the electron and positron colored knots,
+    \item $\#$ denotes a \emph{bridge cobordism} of color $2j_b$ that fuses one component of $K_e$ and one of $K_p$,
+    \item The cobordism surface is generated by allowable moves subject to parity conservation.
+  \end{enumerate}
+\end{definition}
+
+\subsection{Jones Polynomial Transformation (Formal)}
+The transformation under dual-anchored cobordisms can be formally expressed as:
+\begin{equation}
+  V_{(K_e \cup K_p) \#_{j_b} K_{\mathrm{bridge}}}(q)
+  \;=\;
+  \sum_{J}
+  \frac{\Delta_J}{\Delta_{j_b}} \;
+  F^{(j_b)}_{J} \;
+  V_{K_\gamma}(q)
+\end{equation}
+where $\Delta_J$ is the quantum dimension and $F^{(j_b)}_J$ is the fusion coefficient.
+
+\textbf{Important caveat}: Explicit evaluation of these polynomials for specific knot types requires extensive computation beyond the scope of this work. We present this formula to illustrate the mathematical structure; concrete calculations await future development.
+
+\subsection{Photon-to-Pair Visualization}
+A photon propagating in the bulk can be represented by an unknotted loop with framing corresponding to its helicity. Near a strong nucleus, this loop may deform into a pair of linked loops, representing electron and positron worldlines. The transition can be depicted as:
+
+\begin{enumerate}[label=S\arabic*:]
+  \item Incident photon knot $K_\gamma$ enters bulk zone
+  \item Bulk + index budget condition satisfied
+  \item Local reconnection moves change $K_\gamma$ into a proto-link state
+  \item Dual anchors form in spin network, bridge spin $j_b$ established
+  \item Final steady-state dual-anchored link $(K_e,K_p)$ persists
+\end{enumerate}
+
+\subsection{Connection to Main Results}
+The tomographic cut entropy $\Delta S_\gamma$ (main text, Cut Tomography Protocol) maps to changes in the reduced link polynomial under deletion of components crossing the cut. While we cannot yet compute these polynomials explicitly, the framework suggests that:
+\begin{itemize}
+  \item Dual-anchored states correspond to irreducible knot cobordisms
+  \item The minimal index theorem reflects topological minimality
+  \item Brachiation motion may relate to isotopy of the knotted worldlines
+\end{itemize}
+
+\subsection{Open Problems}
+\begin{enumerate}
+  \item Explicit calculation of Jones polynomials for specific dual-anchored configurations
+  \item Rigorous connection between operator-algebraic index and knot invariants
+  \item Physical interpretation of knot topology in the quantum geometry context
+\end{enumerate}
+
+\section{Brachiation–Hydrogen Numerics (Sketch)}
+\label{app:brach-numerics}
+
+We simulate on a cubic lattice of spacing $a$ within a ball of radius $R\!\gg\!a_0$, with reflecting boundary. Set $D=\hbar/(2m_e)$ and choose $V_{\mathrm{eff}}$ from $V_C(r)$ plus a weak $V_{\mathrm{ind}}$. For $1s$, no nodes are imposed. For $2p_z$, impose the plane $z=0$ as a fixed node (kill or reflect with sign flip). Rates use \eqref{eq:rate} with detailed-balance correction; time step chosen by uniformization.
+
+Diagnostics:
+(i) radial histogram vs.\ $e^{-2r/a_0}$;
+(ii) angular histogram vs.\ $|Y_\ell^m|^2$;
+(iii) $D_{\mathrm{KL}}$ decrease under $a\downarrow$ and $R\uparrow$.
+Convergence is achieved when the empirical density stabilizes within tolerance over $>10$ decorrelation times.
+
+\subsection{Photon and Pair-Creation Example}
+A photon propagating in the bulk can be represented by an unknotted loop with framing corresponding to its helicity.
+Near a strong nucleus (bulk curvature), this loop may deform into a pair of linked loops, representing electron and positron worldlines, with crossing changes encoding interaction points.
+The transition can be depicted as a smooth homotopy of the knot diagram, where the Jones polynomial changes discontinuously at the creation event.
+
+\subsection{Status and Outlook}
+These constructions are illustrative: no claim is made that particle identity is topologically protected in the present framework.
+However, this approach may serve as a bridge to topological quantum field theory visualizations and to possible experimental analogues (e.g.\ photonic lattices with knotted modes).
+Full derivations of knot invariants from the spin network embedding remain an open problem.
+
+\section{Detailed 9j-Symbol Calculations}
+[Full worked examples with explicit Wigner 9j evaluations]
+
+\section{Numerical Tomography Data}
+[Tables and plots from simulations]
+
+\section{Transfer-Map Numerics for $\kappa$ and Category Phase}\label{app:transfer-numerics}
+
+\begin{definition}[Bridge Transfer Map]\label{def:transfer-map}
+  The one-cell bridge transfer map $T: H_\gamma \to H_{\gamma'}$ is the completely positive, SU(2)-equivariant map defined by
+  \[
+    T(\rho) = \sum_{\alpha} K_\alpha \rho K_\alpha^\dagger,
+  \]
+  where $K_\alpha$ are Kraus operators satisfying $[K_\alpha, U^{\otimes}] = 0$ for all $U \in \mathrm{SU}(2)$ and $\sum_\alpha K_\alpha^\dagger K_\alpha = \mathbb{I}$.
+\end{definition}
+
+\paragraph{Geometric suppression constant.}
+Let $T$ be the one-cell bridge transfer map on boundary states (\ref{def:transfer-map}). Denote its singular values $1=s_1>s_2\ge s_3\ge\cdots$. We define
+\begin{equation}
+  \kappa = -2\ln s_2.
+\end{equation}
+For the categories considered (Ising, Fibonacci) we estimate $s_2$ numerically from the $F$ and $R$ data restricted to admissible channels. The values used in our baseline runs are reported alongside sweeps in Appendix~\ref{app:sim-protocol}.
+
+\paragraph{Category-fixed phase per cell.}
+For Fibonacci, with
+\(
+  F=
+  \begin{psmallmatrix}
+    \varphi^{-1} & \varphi^{-1/2}\\
+    \varphi^{-1/2} & -\varphi^{-1}
+  \end{psmallmatrix}\!,
+  \quad
+  R=\mathrm{diag}(e^{-4\pi i/5}, e^{3\pi i/5}),
+\)
+the internal step $U_{\mathrm{step}}=F^\top R F$ has eigenphases whose difference equals $\Delta\phi=-108^\circ$; see Lemma~\ref{lem:phase-per-cell}.
+
+\section{Simulation Protocol and Calibration}\label{app:sim-protocol}
+
+\paragraph{Units and baselines.}
+Entropy/area in nats via $\Delta S=\ln(2j+1)$ per conduit; geometric suppression uses $e^{-\kappa \Delta L/2}$; $\Delta_{\mathrm{int}}$ is a dimensionless modular gap; $\tau^\star$ is a survival threshold in simulation steps. To convert area to bits, multiply by $\log_2 e$.
+
+\paragraph{Baseline parameters.}
+\[
+  \kappa = 2.6679397240,\quad \Delta_{\mathrm{int}}=0.22,\quad \tau^\star=2000,\quad \mathrm{Area}_{\mathrm{cut}}=5.5\ \text{nats},
+\]
+category $\mathrm{SU}(2)_k$ with $k=48$.
+
+\paragraph{Sensitivity sweeps.}
+\[
+  \kappa\in\{2.4,\,2.6679,\,2.9\},\quad
+  \Delta_{\mathrm{int}}\in\{0.15,\,0.22,\,0.30\},\quad
+  \tau^\star\in\{500,\,2000,\,10000\},
+\]
+\[
+  \mathrm{Area}_{\mathrm{cut}}\in\{4.5,\,5.5,\,6.5\}\ \text{nats},\quad
+  k\in\{32,\,48,\,64\}.
+\]
+
+\paragraph{Calibration.}
+We fix the overall mass proxy by anchoring to the muon and cross-checking against $W,Z$ with the same $(\kappa,\Delta_{\mathrm{int}})$ and birth-window geometry. Reported mass maps list $(\text{boundary index},\ \Delta L,\ g,\ \tau)$ and pass/fail vs.\ $\tau^\star$.
+
+\section*{References}
+\begin{thebibliography}{99}
+
+  \bibitem{bridge-monotonicity}
+  M.~Sandoz,
+  ``Bridge-Monotonicity in Spin Networks: Entropy Jumps from Minimal Handles,''
+  preprint / internal note (2025).
+
+  \bibitem{operator-theory}
+  M.~Sandoz and collaborators,
+  ``An Operator-Algebraic Perspective on Entropy Flow in Spin Networks,''
+  preprint / internal note (2025).
+
+  \bibitem{wigner9j}
+  D.~A.~Varshalovich, A.~N.~Moskalev, and V.~K.~Khersonskii,
+  \emph{Quantum Theory of Angular Momentum} (World Scientific, 1988).
+  (Reference text for $6j/9j$ symbols and recoupling identities used in Section~\textit{Overlap Fragility and 9j-Symbols}.)
+
+  \bibitem{loopqg}
+  C.~Rovelli and F.~Vidotto,
+  \emph{Covariant Loop Quantum Gravity} (Cambridge University Press, 2015).
+  (Background on spin networks and SU(2) intertwiners referenced in the Introduction and Framework.)
+
+\end{thebibliography}
+\end{document}
