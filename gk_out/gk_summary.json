@@ -1,0 +1,20 @@
+{
+  "nconf": 200,
+  "nstep": 20000,
+  "dt": 1.0,
+  "tau": 20.0,
+  "sigma": 1.0,
+  "jobs": 20,
+  "D_estimate": 20.198420304471853,
+  "D_true_OU": 20.0,
+  "relative_error": 0.009921015223592632,
+  "plateau_window": [
+    49.0,
+    153.0
+  ],
+  "timings_seconds": {
+    "generate_series": 1.7944159507751465,
+    "autocorr_and_integral": 0.2310030460357666,
+    "total": 2.025418996810913
+  }
+}

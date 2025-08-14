@@ -1,0 +1,11 @@
+{
+  "O_cost": "O(nconf * nstep log nstep) dominated by FFT",
+  "nconf": 200,
+  "nstep": 20000,
+  "jobs": 20,
+  "timings_seconds": {
+    "generate_series": 1.7944159507751465,
+    "autocorr_and_integral": 0.2310030460357666,
+    "total": 2.025418996810913
+  }
+}
