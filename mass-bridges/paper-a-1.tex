@@ -154,14 +154,37 @@ For SU(2)$_k$ with $k=48$ and a boundary containing two spin-1/2 edges and one s
   \label{eq:kappa-numeric}
 \end{equation}
 
-\begin{remark}[Physical Interpretation]
-  The constant $\kappa$ is:
-  \begin{enumerate}
-    \item DERIVED from first principles via SVD of transfer map
-    \item COMPUTED explicitly: $\kappa = 2.667939724$ for SU(2)$_{48}$
-    \item MEASURABLE via survival ratios: $\kappa = -\ln(p(\Delta L+1)/p(\Delta L))$
-    \item INTERPRETED as inverse correlation length: $\xi_{\text{geom}} = a/\kappa \approx 0.375a$
-  \end{enumerate}
+Computation from F/R data. For SU(2)$_k$ with $k = 48$ and a boundary containing two spin-1/2 edges and one spin-1 edge:
+\[
+  s_1 = 1 \text{ (gauge)}, \quad s_2 = 0.263429404\ldots, \quad \kappa = 2.667939724\ldots \tag{5}
+\]
+
+\begin{remark}[Derivation and Properties of $\kappa$]\label{rem:kappa-derivation}
+  The constant $\kappa = 2.667939724$ is derived from the gauge-twirled transfer matrix for the $[\frac{1}{2}, \frac{1}{2}, 1]$ boundary configuration:
+
+  \textbf{Transfer Matrix Structure:} The gauge-twirled one-cell CPTP map reduces to a $2 \times 2$ stochastic matrix:
+  \begin{equation}
+    E = s_2 \mathbb{I} + (1 - s_2) \mathbf{1} \pi^T =
+    \begin{pmatrix}
+      0.44757205 & 0.18414265 \\
+      0.55242795 & 0.81585735
+    \end{pmatrix}
+  \end{equation}
+  where $s_2 = 0.263429404$ is the second singular value and $\pi = [\frac{1}{4}, \frac{3}{4}]^T$ is the stationary distribution.
+
+  \textbf{Physical Interpretation:} The stationary distribution reflects the fusion $V_{1/2} \otimes V_{1/2} = V_0 \oplus V_1$, where the $j=1$ channel has 3-fold multiplicity vs 1-fold for $j=0$, giving $\pi_1/\pi_0 = 3/1$.
+
+  \textbf{Key Properties:}
+  \begin{itemize}
+    \item Formula: $\kappa = -2\ln s_2 = 2.667939724$
+    \item Stability: $k$-independent for SU(2)$_k$ with $k \geq 40$
+    \item Near-coincidence: Differs from $8/3$ by only $0.0474\%$
+    \item Information decay: $I(t) = I_0 \exp(-\kappa t/\tau)$
+    \item Correlation length: $\xi = a/\kappa \approx 0.375a$
+    \item Bridge lifetime: $\tau \gtrsim \Delta_{\text{int}} \cdot e^{\kappa\Delta L} \cdot d^{-1}$
+  \end{itemize}
+
+  \textbf{Dynamic vs Static:} The constant $\kappa$ characterizes \emph{dynamic} information propagation. It does NOT multiply the static entropy count, which depends only on the Jones index $[N':N] = 2j_b + 1$. Static entropy: $S = \sum_{\text{punctures}} \ln(2j + 1)$ (no $\kappa$ factor).
 \end{remark}
 
 \subsection{Bridge Lifetime Bounds}

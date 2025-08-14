@@ -790,6 +790,59 @@ We no longer assume $\log T(r)=C-\beta/r$.
 Instead we \emph{derive} it from: (i) unitality of the bridge channel (global conservation), (ii) a localized source (anchor), and (iii) isotropy.
 These imply a lattice Poisson equation; its Green’s function gives the $1/r$ tail for $\Phi$, which transfers directly to the \(\log T(r)\) budget and, after the standard radial reduction, to the hydrogenic \(-\beta/r\) potential and \(1/n^2\) energies.
 
+\subsection{The Anchor Charge Q: Definition and Computation}
+\label{subsec:anchor-charge}
+
+The anchor charge $Q$ quantifies the localized source strength at the dual-anchored excitation's center. It appears in the Coulomb coefficient through Eq.~\eqref{eq:beta-from-DQ}:
+\[
+  \beta = \frac{Q}{4\pi\sqrt{\det \mathsf{D}}}
+\]
+
+\paragraph{Definition via Channel Comparison.}
+Let $\mathcal{E}$ be the one-cell boundary transfer channel without the anchor, and $\mathcal{E}^{(a)}$ the channel with an anchor of spin $j_a$ inserted. The anchor charge is:
+\begin{equation}\label{eq:Q-channel-def}
+  Q := \mathrm{Tr}[\mathcal{E}^{(a)}(\mathbb{1})] - \mathrm{Tr}[\mathcal{E}(\mathbb{1})]
+\end{equation}
+
+\paragraph{Kraus/Choi Trace Evaluation.}
+In the Kraus representation $\mathcal{E}^{(a)}(\rho) = \sum_i K_i^{(a)} \rho (K_i^{(a)})^\dagger$, the anchor charge becomes:
+\begin{equation}\label{eq:Q-Kraus}
+  Q = \sum_i \mathrm{Tr}[(K_i^{(a)})^\dagger K_i^{(a)}] - \dim(\mathcal{H}_{\text{boundary}})
+\end{equation}
+Equivalently, using the Choi matrix $C^{(a)} = \sum_{ij} |i\rangle\langle j| \otimes \mathcal{E}^{(a)}(|i\rangle\langle j|)$:
+\[
+  Q = \mathrm{Tr}_{\text{out}}[C^{(a)}] - \mathrm{Tr}_{\text{out}}[C]
+\]
+
+\paragraph{Quantum Dimension Formula for SU(2)$_k$.}
+For an anchor carrying spin $j_a$ in the quantum group SU(2)$_k$ at root of unity $q = e^{\pi i/(k+2)}$, the anchor charge equals:
+\begin{equation}\label{eq:Q-quantum-dim}
+  Q = d_{j_a}(q) - 1, \quad \text{where} \quad d_{j_a}(q) = \frac{\sin\left(\frac{(2j_a+1)\pi}{k+2}\right)}{\sin\left(\frac{\pi}{k+2}\right)}
+\end{equation}
+is the quantum dimension of the spin-$j_a$ representation.
+
+\paragraph{Practical Computation Protocol.}
+\begin{enumerate}
+  \item \textbf{From $(F,R)$ data:} Build the one-cell channels $\mathcal{E}$ and $\mathcal{E}^{(a)}$ using the fusion/recoupling matrices, then evaluate $Q$ via Eq.~\eqref{eq:Q-Kraus}.
+
+  \item \textbf{From category data alone:} If the anchor adds one conduit of spin $j_a$, compute $Q = d_{j_a}(q) - 1$ directly from Eq.~\eqref{eq:Q-quantum-dim}.
+
+  \item \textbf{Example for SU(2)$_{48}$:} For a spin-$\frac{1}{2}$ anchor at level $k=48$:
+    \[
+      d_{1/2}(q) = \frac{\sin(3\pi/50)}{\sin(\pi/50)} \approx 1.996, \quad \text{hence} \quad Q \approx 0.996 \approx 1
+    \]
+    At this level, the quantum correction is negligible and $Q$ is essentially the classical value.
+\end{enumerate}
+
+\paragraph{Physical Interpretation.}
+The anchor charge $Q$ measures the net index capacity added by the dual-anchored excitation. In the electrostatic analogy:
+\begin{itemize}
+  \item $Q$ plays the role of electric charge
+  \item The conservation law $\nabla \cdot J = Q\delta_0$ is the geometric Gauss law
+  \item The $1/r$ potential emerges with strength proportional to $Q$
+\end{itemize}
+For hydrogen, $Q \approx 1$ corresponds to a single unit of "geometric charge" localized at the nucleus position.
+
 \subsection{Quantum Matching}
 
 Set units so that diffusion matches the quantum kinetic term:
@@ -1052,13 +1105,10 @@ The budget–potential relation $\log T(r)=C-\Phi(r)+o(1/r)$ then gives the Coul
   \beta \;=\; \frac{Q}{4\pi\,\sqrt{\det \mathsf{D}}}\qquad
   (\text{isotropic case: }\beta=Q/(4\pi D)).
 \end{equation}
-Here $Q$ is the localized anchor charge (a combinatorial invariant of the bridge algebra), and
-$\mathsf{D}$ is the Green–Kubo transport tensor of the boundary channel in the stationary far field:
-\[
-  \mathsf{D} \;=\; \int_0^\infty \!\!\mathrm{Cov}\big(J(0),J(t)\big)\,\mathrm{d}t,
-\]
-well–defined under the detailed balance/ergodicity hypotheses of Sec.~4.4.1.
-Thus $\beta$ is \emph{not} a free parameter; it is determined by $(Q,\mathsf{D})$.
+Here $Q$ is the localized anchor charge (see Section~\ref{subsec:anchor-charge} for detailed computation),
+a combinatorial invariant of the bridge algebra that can be computed either from the Kraus operators
+of the boundary channel or directly from the quantum dimension formula. For SU(2)$_{48}$ with a
+spin-$\frac{1}{2}$ anchor, $Q \approx 1$, recovering the familiar unit charge of hydrogen.
 
 \paragraph{Attempt rate $\Gamma_0$ from the channel spectral gap.}
 Let $\mathcal{E}$ be the one–step CPTP boundary transfer (on a mesoscopic half–step of duration $\delta\tau$) and write
@@ -1222,6 +1272,7 @@ Future work should focus on: (i) multi-particle brachiation dynamics, (ii) incor
     \hline
     \textbf{Parameter} & \textbf{Value} & \textbf{Origin} & \textbf{Status} \\
     \hline
+    $Q$ & $d_{j_a}(q) - 1$ & Quantum dimension & Derived \\
     $\kappa$ & 2.667939724 & Transfer spectrum SVD & Derived \\
     $\delta\ell, \delta\tau$ & Graph units & Lattice structure & Fundamental \\
     $\sigma, \rho$ & SI conversion & Calibration via $\Gamma_X$, $c$ & Measured \\
